@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organismes{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success mt-4">            
+        <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+    
+        <h1>Organismes</h1>
+
+        <a href="{{ path('organisme.new')}}" class="btn btn-primary">Ajouter un organisme</a>        
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="entetesign" scope="col">Organisme</th>
+                    <th class="entetesign" scope="col">Modifier</th>
+                    <th class="entetesign" scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for organisme in organismes %}
+                    <tr class="table-success">                        
+                        <td>{{organisme.type}}</td>                        
+                        <td><a class="btn btn-info" type="button" href='{{ path('organisme.edit', {id: organisme.id})}}'>Modifier</a></td>
+                        <td><a class="btn btn-secondary" type="button" href='{{ path('organisme.delete', {id: organisme.id})}}'>Effacer</a></td>
+                    </tr>
+                {% endfor %}                
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(organismes)}}
+        </div>
+    </div>
+{% endblock %}

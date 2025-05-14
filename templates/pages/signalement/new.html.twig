@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Structures{% endblock %}
+
+{% block body %}
+    <div class='container mt-4'>
+        <h1>Ajouter un signalement</h1>
+
+        {{ form_start(form) }}
+        
+        <div class="form-group">
+            {{ form_label(form.numero) }}      
+            {{ form_widget(form.numero) }}
+            <div class="form-error">{{ form_errors(form.numero) }}</div>
+           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.type) }}      
+            {{ form_widget(form.type) }}
+            <div class="form-error">{{ form_errors(form.type) }}</div>
+            {# {{ form_help(form.name) }} #}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.date) }}      
+            {{ form_widget(form.date) }}
+            <div class="form-error">{{ form_errors(form.date) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.structure) }}      
+            {{ form_widget(form.structure) }}
+            <div class="form-error">{{ form_errors(form.structure) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.organisme) }}    
+            {{ form_widget(form.organisme) }}            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.resistance) }}    
+            {{ form_widget(form.resistance) }}            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.infection) }}      
+            {{ form_widget(form.infection) }}      
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.cas) }}      
+            {{ form_widget(form.cas) }}
+            <div class="form-error">{{ form_errors(form.cas) }}</div>
+            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.service) }}    
+            {{ form_widget(form.service) }}            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.commentaire) }}      
+            {{ form_widget(form.commentaire) }}
+            <div class="form-error">{{ form_errors(form.commentaire) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.souche) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.etiologie) }}      
+            {{ form_widget(form.etiologie) }}      
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.epidemie) }}      
+            {{ form_widget(form.epidemie) }}
+            <div class="form-error">{{ form_errors(form.epidemie) }}</div>
+           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.gravite) }}      
+            {{ form_widget(form.gravite) }}
+            <div class="form-error">{{ form_errors(form.gravite) }}</div>
+           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.population) }}      
+            {{ form_widget(form.population) }}
+            <div class="form-error">{{ form_errors(form.population) }}</div>
+            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.reco) }}      
+            {{ form_widget(form.reco) }}
+            <div class="form-error">{{ form_errors(form.reco) }}</div>
+          
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.mesure) }}      
+            {{ form_widget(form.mesure) }}
+            <div class="form-error">{{ form_errors(form.mesure) }}</div>
+          
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.capacite) }}      
+            {{ form_widget(form.capacite) }}
+            <div class="form-error">{{ form_errors(form.capacite) }}</div>
+          
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.impact) }}      
+            {{ form_widget(form.impact) }}
+            <div class="form-error">{{ form_errors(form.impact) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.contact) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.ARS) }}      
+            {{ form_widget(form.ARS) }}
+            <div class="form-error">{{ form_errors(form.ARS) }}</div>
+           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.clotureARS) }}      
+            {{ form_widget(form.clotureARS) }}
+            <div class="form-error">{{ form_errors(form.clotureARS) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.ES) }}      
+            {{ form_widget(form.ES) }}
+            <div class="form-error">{{ form_errors(form.ES) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.clotureES) }}      
+            {{ form_widget(form.clotureES) }}
+            <div class="form-error">{{ form_errors(form.clotureES) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.CPIAS) }}      
+            {{ form_widget(form.CPIAS) }}
+            <div class="form-error">{{ form_errors(form.CPIAS) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.clotureCPIAS) }}      
+            {{ form_widget(form.clotureCPIAS) }}
+            <div class="form-error">{{ form_errors(form.clotureCPIAS) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.SPF) }}      
+            {{ form_widget(form.SPF) }}
+            <div class="form-error">{{ form_errors(form.SPF) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.clotureSPF) }}      
+            {{ form_widget(form.clotureSPF) }}
+            <div class="form-error">{{ form_errors(form.clotureSPF) }}</div>         
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.submit) }}      
+        </div>
+        {{ form_end(form) }}
+    <div>
+
+
+{% endblock %}

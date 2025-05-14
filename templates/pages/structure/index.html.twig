@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Structures{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success mt-4">            
+        <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+    
+        <h1>Liste Structures</h1>
+
+        <a href="{{ path('structure.new') }}" class="btn btn-primary">Enregistrer une structure</a>        
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Finess G</th>
+                    <th scope="col">Finess J</th>
+                    <th scope="col">N°</th>
+                    <th scope="col">Voie</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Code Postale</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Département</th>
+                    <th scope="col">Longitude</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Code ARS</th>
+                    <th scope="col">Modification</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for structure in structures %}
+                    <tr class="table-success">
+                        <th scope="row">{{structure.nom|upper}}</th>
+                        <td>{{structure.finessG}}</td>
+                        <td>{{structure.finessJ}}</td>
+                        <td>{{structure.numero}}</td>
+                        <td>{{structure.voie}}</td>
+                        <td>{{structure.adresse}}</td>
+                        <td>{{structure.cp}}</td>
+                        <td>{{structure.ville}}</td>
+                        <td>{{structure.departement}}</td>
+                        <td>{{structure.longitude}}</td>
+                        <td>{{structure.latitude}}</td>
+                        <td>{{structure.type}}</td>
+                        <td><a class="btn btn-info" type="button" href='{{ path('structure.edit', {id: structure.id})}}'>Modifier</a></td>
+                        <td><a class="btn btn-secondary" type="button" href='{{ path('structure.delete', {id: structure.id})}}'>Effacer</a></td>
+                    </tr>
+                {% endfor %}                
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(structures)}}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signalert - Modifier une structures{% endblock %}
+
+{% block body %}
+    <div class='container mt-4'>
+        <h1>Modifier une structure</h1>
+
+        {{ form_start(form) }}
+        
+        <div class="form-group">
+            {{ form_label(form.nom) }}      
+            {{ form_widget(form.nom) }}
+            <div class="form-error">{{ form_errors(form.nom) }}</div>        
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.finessG) }}      
+            {{ form_widget(form.finessG) }}
+            <div class="form-error">{{ form_errors(form.finessG) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.finessJ) }}      
+            {{ form_widget(form.finessJ) }}
+            <div class="form-error">{{ form_errors(form.finessJ) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.numero) }}      
+            {{ form_widget(form.numero) }}
+            <div class="form-error">{{ form_errors(form.numero) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.voie) }}      
+            {{ form_widget(form.voie) }}
+            <div class="form-error">{{ form_errors(form.voie) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.adresse) }}      
+            {{ form_widget(form.adresse) }}
+            <div class="form-error">{{ form_errors(form.adresse) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.cp) }}      
+            {{ form_widget(form.cp) }}
+            <div class="form-error">{{ form_errors(form.cp) }}</div>            
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.ville) }}      
+            {{ form_widget(form.ville) }}
+            <div class="form-error">{{ form_errors(form.ville) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.departement) }}      
+            {{ form_widget(form.departement) }}
+            <div class="form-error">{{ form_errors(form.departement) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.longitude) }}      
+            {{ form_widget(form.longitude) }}
+            <div class="form-error">{{ form_errors(form.longitude) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.latitude) }}      
+            {{ form_widget(form.latitude) }}
+            <div class="form-error">{{ form_errors(form.latitude) }}</div>          
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.type) }}      
+            {{ form_widget(form.type) }}
+            <div class="form-error">{{ form_errors(form.type) }}</div>           
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.submit, { 'label': 'Modifier la structure'}) }}      
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
