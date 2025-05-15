@@ -157,7 +157,10 @@ class SignalementType extends AbstractType
                 'label' => "Agent étiologique",
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],                
+                ], 
+                'choice_value' => function (?Etiologie $entity): string {
+                    return $entity ? $entity->getAgent() : '';
+                },               
                 'choice_label' => 'agent',
                 // 'multiple' => true,
             ])         

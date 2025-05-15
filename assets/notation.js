@@ -166,37 +166,37 @@
     // butscore.addEventListener('click', ()=>{
     //     console.log(score)
     // })
-document.addEventListener("DOMContentLoaded", () => {
-    const reset = document.querySelector('.modif')
-    const valider = document.querySelector('.valider')
-    const scores = document.querySelector('#signalement_score')
-    if(reset){
-        reset.addEventListener('click', ()=>{
-            console.log('reset')
-        })
-    }
-    if(valider){
-        let score = 0
-        const etiol = document.querySelector('#signalement_etiologie')
-        etiologie = etiol.options[etiol.selectedIndex].text
-        console.log(etiologie)
-        console.log(score)
-        valider.addEventListener('click', (e)=>{
-            console.log('click valide')
-            if(etiologie == 'VIH / Hépatite'){
-                score = score + 100;
-                console.log('vih')
-            }else{
-                score = score + 10
-                console.log(score)
-                console.log('autre')
-            }
-            scores.value = score
-            console.log(score)
-          
-        })
-    }        
-})
+// document.addEventListener("DOMContentLoaded", () => {
+//     const reset = document.querySelector('.modif')
+//     const valider = document.querySelector('.valider')
+//     const scores = document.querySelector('#signalement_score')
+//     if(reset){
+//         reset.addEventListener('click', ()=>{
+//             console.log('reset')
+//         })
+//     }
+    
+//     if(valider){
+//         let score = 0
+//         const etiol = document.querySelector('#signalement_etiologie')
+//         etiologie = etiol.options[etiol.selectedIndex].text
+//         console.log(etiologie)
+//         console.log(score)
+//         valider.addEventListener('click', ()=>{
+//             console.log('click valide')
+//             if(etiologie == 'VIH / Hépatite'){
+//                 score = score + 100;
+//                 console.log('vih')
+//             }else{
+//                 score = score + 10
+//                 console.log(score)
+//                 console.log('autre')
+//             }
+//             scores.value = score
+//             console.log(score)
+//         })
+//     }        
+// })
 
 // document.addEventListener("DOMContentLoaded", (e) => {
 //     let score = 0;
@@ -205,8 +205,21 @@ document.addEventListener("DOMContentLoaded", () => {
 //     const etiol = document.querySelector('#signalement_etiologie');
   
 //     etiol.addEventListener('change', (e) => {
-//       etiologie = e.target.value;
+//     //   etiologie = e.target.value;
+//       etiologie = etiol.options[etiol.selectedIndex].text;
+//       console.log(etiologie)
 //       scores.value = score + (etiologie == 'VIH / Hépatite' ?  100 : 10);
 //     });
 // });
 
+document.addEventListener("DOMContentLoaded", (e) => {
+    let score = 0;
+
+    const scores = document.querySelector('#signalement_score');
+    const etiol = document.getElementById('signalement_etiologie');
+ 
+   etiol.addEventListener('change', (e) => {
+     scores.value = score + (e.target.value === 'VIH / Hépatite' ?  100 : 10);
+       console.log(scores.value)
+   });
+});
