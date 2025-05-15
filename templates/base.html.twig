@@ -10,8 +10,11 @@
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-            <script src="{{asset('notation.js')}}"></script>
+            {% block importmap %}
+            {{ importmap('app') }}
+            {{ importmap('notation') }}
+            {% endblock %}
+            {# // <script src="{{asset('notation.js')}}"></script> #}
         {% endblock %}
     </head>
     <body>
