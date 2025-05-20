@@ -43,7 +43,9 @@ class SignalementType extends AbstractType
         $builder
             ->add('numero', IntegerType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'maxlength' => '6',
+                    'minlength' => '5'
                 ],
                 'label' => 'Numéro du signalement',
                 'label_attr' => [
@@ -91,7 +93,7 @@ class SignalementType extends AbstractType
                 'label' => "Nom de la structure",
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],                
+                ],
                 'choice_label' => 'nom',
                 // 'multiple' => true,
             ])

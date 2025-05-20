@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="mt-4">
-    
+
 
     {% for message in app.flashes('success') %}
         <div class="alert alert-dismissible alert-success mt-4">            
@@ -16,9 +16,9 @@
 
         <a href="{{ path('signalement.new')}}" class="btn btn-primary">Créer une alerte</a>
 
-        <div class="row">
+        <div class="row" data-controller="index">
             {% for signalement in signalements %}
-            <a class=" col-4 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">          
+            <a class=" col-4 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
                 <div class="card text-white bg-info mb-3 mx-2" style="max-width: 20rem;">
                     <div class="card-header">signalement n°{{signalement.id}}</div>
                     <div class="card-body">
@@ -33,7 +33,7 @@
                         {% endfor %}
                         <p class="card-text"><span class="badge rounded-pill bg-success">Infection</span> : {{signalement.infection}}</p>
                         <p class="card-text"><span class="badge rounded-pill bg-success">Cas</span> : {{signalement.cas}}</p>
-                        <p class="card-text score-index"><span class="badge rounded-pill bg-success">Score</span> : {{signalement.score}}</p>
+                        <p class="card-text score-index"><span class="badge rounded-pill bg-success">Score</span> : <span class="score">{{signalement.score}}</span></p>
                     </div>
                 </div> 
             </a>

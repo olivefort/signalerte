@@ -212,16 +212,16 @@
 //     });
 // });
 
-document.addEventListener("DOMContentLoaded", (e) => {
-    let score = 0;
+// document.addEventListener("DOMContentLoaded", (e) => {
+    // let score = 0;
 
-    const scores = document.querySelector('#signalement_score');
-    const etiol = document.getElementById('signalement_etiologie');
+    // const scores = document.querySelector('#signalement_score');
+    // const etiol = document.getElementById('signalement_etiologie');
  
 //    etiol.addEventListener('change', (e) => {
 //      scores.value = score + (e.target.value === 'VIH / Hépatite' ?  100 : 10);
 //        console.log(scores.value)
 //    });
 
-   etiol.addEventListener('change', (e) => scores.value = e.target.value === 'VIH / Hépatite' ?  100 : 10);
-});
+//    etiol.addEventListener('change', (e) => scores.value = e.target.value === 'VIH / Hépatite' ?  100 : 10);
+// });

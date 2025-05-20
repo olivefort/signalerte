@@ -8,41 +8,95 @@
 
         {{ form_start(form) }}
 
-        <div class="form-group">
-            {{ form_label(form.numero) }}      
-            {{ form_widget(form.numero) }}
-            <div class="form-error">{{ form_errors(form.numero) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
+        <div data-controller="signalement">
+            {# <div class="form-group">
+                {{ form_label(form.numero) }}      
+                {{ form_widget(form.numero) }}
+                <div class="form-error">{{ form_errors(form.numero) }}</div>
+                {{ form_help(form.name) }}
+            </div> #}
+            {{ form_row(form.type, {
+                attr: {
+                    'data-signalement-target': 'type',
+                    'data-action' :
+                    'change->signalement#updateLengthNum'
+                }
+            }) }}
 
-        <div class="form-group">
-            {{ form_label(form.type) }}      
-            {{ form_widget(form.type) }}
-            <div class="form-error">{{ form_errors(form.type) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
+            {{ form_row(form.numero, {
+                attr: {
+                    'data-signalement-target': 'numero',
+                }
+            }) }}
 
-        <div class="form-group">
-            {{ form_label(form.structure) }}      
-            {{ form_widget(form.structure) }}
-            <div class="form-error">{{ form_errors(form.structure) }}</div>            
-        </div>
 
-        <div class="form-group">
-            {{ form_label(form.date) }}      
-            {{ form_widget(form.date) }}
-            <div class="form-error">{{ form_errors(form.date) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
+            {# <div class="form-group">
+                {{ form_label(form.type) }}      
+                {{ form_widget(form.type) }}
+                <div class="form-error">{{ form_errors(form.type) }}</div>
+                {{ form_help(form.name) }}
+            </div> #}
 
-        <div class="form-group">
-            {{ form_label(form.infection) }}      
-            {{ form_widget(form.infection) }}      
-        </div>
+            <div class="form-group">
+                {{ form_label(form.structure) }}      
+                {{ form_widget(form.structure) }}
+                <div class="form-error">{{ form_errors(form.structure) }}</div>            
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
+                {{ form_label(form.date) }}      
+                {{ form_widget(form.date) }}
+                <div class="form-error">{{ form_errors(form.date) }}</div>
+                {# {{ form_help(form.name) }} #}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.infection) }}      
+                {{ form_widget(form.infection) }}      
+            </div>
+
+        {# <div class="form-group">
             {{ form_label(form.etiologie) }}      
             {{ form_widget(form.etiologie) }}      
+        </div> #}
+
+        
+            {{ form_row(form.etiologie, {
+                attr: {
+                    'data-signalement-target': 'etiologie',
+                    'data-action': 'change->signalement#updateScore'
+                }
+            }) }}
+
+            
+            {{ form_row(form.epidemie, {
+                attr: {
+                    'data-signalement-target' : 'epidemie',
+                    'data-action' : 'change->signalement#updateScore'
+                }
+            }) }}
+
+           
+            {{ form_row(form.gravite, {
+                attr: {
+                    'data-signalement-target' : 'gravite',
+                    'data-action' : 'change->signalement#updateScore'
+                }
+            }) }}
+
+            {{ form_row(form.population, {
+                attr: {
+                    'data-signalement-target' : 'population',
+                    'data-action' : 'change->signalement#updateScore'
+                }
+            }) }}   
+            
+           
+
+           
+            {{ form_row(form.score, {
+                attr: {'data-signalement-target': 'score'}
+            }) }}
         </div>
 
         <div class="form-group">
@@ -74,27 +128,7 @@
             {# {{ form_help(form.name) }} #}
         </div>
 
-        <div class="form-group">
-            {{ form_label(form.epidemie) }}      
-            {{ form_widget(form.epidemie) }}
-            <div class="form-error">{{ form_errors(form.epidemie) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.gravite) }}      
-            {{ form_widget(form.gravite) }}
-            <div class="form-error">{{ form_errors(form.gravite) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.population) }}      
-            {{ form_widget(form.population) }}
-            <div class="form-error">{{ form_errors(form.population) }}</div>
-            {# {{ form_help(form.name) }} #}
-        </div>
-
+     
         <div class="form-group">
             {{ form_label(form.reco) }}      
             {{ form_widget(form.reco) }}
