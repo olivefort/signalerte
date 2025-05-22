@@ -27,9 +27,22 @@
                         </h4>
                         <p class="card-text"><span class="badge rounded-pill bg-success">Établissement</span> : {{signalement.structure.nom}}</p>
                         <p class="card-text"><span class="badge rounded-pill bg-success">Finess</span> : {{signalement.structure.finessG}}</p></p>
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Agent</span> : </p>
-                        {% for organisme in signalement.organisme %}
+                        {# <p class="card-text"><span class="badge rounded-pill bg-success">Agent</span> : </p> #}
+                        {# {% for organisme in signalement.organisme %}
                             <span class="organisme">{{organisme.type}}</span>
+                        {% endfor %} #}
+                        <p class="card-text"><span class="badge rounded-pill bg-success">Agent Infectieux</span> :</p>
+                        {% for agent in signalement.agent %}
+                        <div>
+                            <ul>
+                                <li> : {{agent.organisme}}</li>
+                                {% for resistance in agent.resistance %}
+                                    <ul>
+                                        <li>{{ resistance.type}}</li>
+                                    </ul>
+                                {% endfor %}
+                            </ul>
+                        </div>
                         {% endfor %}
                         <p class="card-text"><span class="badge rounded-pill bg-success">Infection</span> : {{signalement.infection}}</p>
                         <p class="card-text"><span class="badge rounded-pill bg-success">Cas</span> : {{signalement.cas}}</p>

@@ -93,17 +93,17 @@ class Signalement
     #[ORM\ManyToMany(targetEntity: Service::class)]
     private Collection $service;
 
-    /**
-     * @var Collection<int, Organisme>
-     */
-    #[ORM\ManyToMany(targetEntity: Organisme::class, inversedBy: 'signalements')]
-    private Collection $organisme;
+    // /**
+    //  * @var Collection<int, Organisme>
+    //  */
+    // #[ORM\ManyToMany(targetEntity: Organisme::class, inversedBy: 'signalements')]
+    // private Collection $organisme;
 
-    /**
-     * @var Collection<int, Resistance>
-     */
-    #[ORM\ManyToMany(targetEntity: Resistance::class)]
-    private Collection $Resistance;
+    // /**
+    //  * @var Collection<int, Resistance>
+    //  */
+    // #[ORM\ManyToMany(targetEntity: Resistance::class)]
+    // private Collection $Resistance;
 
     /**
      * @var Collection<int, Souche>
@@ -116,6 +116,12 @@ class Signalement
      */
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'signalement', orphanRemoval: true, cascade : ['persist'])]
     private Collection $contact;
+
+    /**
+     * @var Collection<int, Agent>
+     */
+    #[ORM\ManyToMany(targetEntity: Agent::class, inversedBy: 'signalements', orphanRemoval: true, cascade : ['persist'])]
+    private Collection $agent;
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $ARS = null;
@@ -142,16 +148,14 @@ class Signalement
     private ?\DateTimeImmutable $clotureSPF = null;
 
 
-
-
-
     public function __construct()
     {
         $this->service = new ArrayCollection();
-        $this->organisme = new ArrayCollection();
-        $this->Resistance = new ArrayCollection();
+        // $this->organisme = new ArrayCollection();
+        // $this->Resistance = new ArrayCollection();
         $this->souche = new ArrayCollection();
         $this->contact = new ArrayCollection();
+        $this->agent = new ArrayCollection();
     }
 
 
@@ -327,45 +331,45 @@ class Signalement
         return $this;
     }
 
-    /**
-     * @return Collection<int, Organisme>
-     */
-    public function getOrganisme(): Collection
-    {
-        return $this->organisme;
-    }
-    public function addOrganisme(Organisme $organisme): static
-    {
-        if (!$this->organisme->contains($organisme)) {
-            $this->organisme->add($organisme);
-        }
-        return $this;
-    }
-    public function removeOrganisme(Organisme $organisme): static
-    {
-        $this->organisme->removeElement($organisme);
-        return $this;
-    }
+    // /**
+    //  * @return Collection<int, Organisme>
+    //  */
+    // public function getOrganisme(): Collection
+    // {
+    //     return $this->organisme;
+    // }
+    // public function addOrganisme(Organisme $organisme): static
+    // {
+    //     if (!$this->organisme->contains($organisme)) {
+    //         $this->organisme->add($organisme);
+    //     }
+    //     return $this;
+    // }
+    // public function removeOrganisme(Organisme $organisme): static
+    // {
+    //     $this->organisme->removeElement($organisme);
+    //     return $this;
+    // }
 
-    /**
-     * @return Collection<int, Resistance>
-     */
-    public function getResistance(): Collection
-    {
-        return $this->Resistance;
-    }
-    public function addResistance(Resistance $resistance): static
-    {
-        if (!$this->Resistance->contains($resistance)) {
-            $this->Resistance->add($resistance);
-        }
-        return $this;
-    }
-    public function removeResistance(Resistance $resistance): static
-    {
-        $this->Resistance->removeElement($resistance);
-        return $this;
-    }
+    // /**
+    //  * @return Collection<int, Resistance>
+    //  */
+    // public function getResistance(): Collection
+    // {
+    //     return $this->Resistance;
+    // }
+    // public function addResistance(Resistance $resistance): static
+    // {
+    //     if (!$this->Resistance->contains($resistance)) {
+    //         $this->Resistance->add($resistance);
+    //     }
+    //     return $this;
+    // }
+    // public function removeResistance(Resistance $resistance): static
+    // {
+    //     $this->Resistance->removeElement($resistance);
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Souche>
@@ -427,10 +431,33 @@ class Signalement
         return $this;
     }
 
+     /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgent(): Collection
+    {
+        return $this->agent;
+    }
+
+    public function addAgent(Agent $agent): static
+    {
+        if (!$this->agent->contains($agent)) {
+            $this->agent->add($agent);
+        }
+        return $this;
+    }
+
+    public function removeAgent(Agent $agent): static
+    {
+        $this->agent->removeElement($agent);
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->souche;
         return $this->contact;
+        return $this->agent;
     }
 
 
@@ -554,6 +581,4 @@ class Signalement
 
         return $this;
     }
-
-
 }

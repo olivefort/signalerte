@@ -104,7 +104,7 @@ final class SignalementController extends AbstractController
         Signalement $signalement,
         Request $request,
         SignalementRepository $repository,
-        PaginatorInterface $paginator,        
+        // PaginatorInterface $paginator,        
         EntityManagerInterface $manager
     ) :Response {
         return $this->render('pages/signalement/show.html.twig', [

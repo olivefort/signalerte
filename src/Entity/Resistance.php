@@ -21,6 +21,17 @@ class Resistance
     #[Assert\NotBlank()]
     private string $type;
 
+    /**
+     * @var Collection<int, Agent>
+     */
+    #[ORM\ManyToMany(targetEntity: Agent::class, mappedBy: 'resistance')]
+    private Collection $agents;
+
+    public function __construct()
+    {
+        $this->agents = new ArrayCollection();
+    }
+
 
 
 
@@ -44,5 +55,32 @@ class Resistance
     public function __toString()
     {
         return $this->type;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(Agent $agent): static
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
+            $agent->addResistance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(Agent $agent): static
+    {
+        if ($this->agents->removeElement($agent)) {
+            $agent->removeResistance($this);
+        }
+
+        return $this;
     }
 }

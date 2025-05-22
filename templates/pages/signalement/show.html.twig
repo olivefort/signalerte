@@ -29,7 +29,7 @@
             </div>
             <p class="mt-4">Adresse de la structure : {{signalement.structure.numero}} {{signalement.structure.voie}} {{signalement.structure.adresse}} {{signalement.structure.cp}} {{signalement.structure.ville}} / {{signalement.structure.departement}}</p>
             <p class="mt-4">Agent infectieux :</p>
-            <p>Organismes</p>
+            {# <p>Organismes</p>
             <div>
                 <ul>    
                 {% for organisme in signalement.organisme %}
@@ -44,7 +44,7 @@
                     <li class="resistance">{{resistance.type}}</li>
                 {% endfor %}
                 </ul>
-            </div>
+            </div> #}
             <p class="mt-4">Type de l'infection : <span class="infection">{{signalement.infection}}</span></p>
             <p class="mt-4">Services concerné :</p>
             <div>
@@ -73,7 +73,20 @@
                     <li>Date de contact : {{contact.date|date('d/m/Y')}}</li>
                 </ul>
             </div>
-            {% endfor %}    
+            {% endfor %}
+            <p class="mt-4">Agent Infectieux :</p>
+            {% for agent in signalement.agent %}
+            <div>
+                <ul>
+                    <li> : {{agent.organisme}}</li>
+                    {% for resistance in agent.resistance %}
+                        <ul>
+                            <li>{{ resistance.type}}</li>
+                        </ul>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}   
             <p class="mt-4">Agent étiologique : 
                 <span class="etio">{{signalement.etiologie}}</span>        
             </p>

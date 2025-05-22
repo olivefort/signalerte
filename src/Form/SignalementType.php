@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Agent;
 use App\Entity\Numero;
 use App\Entity\Souche;
 use App\Entity\Service;
@@ -14,6 +15,7 @@ use App\Entity\Structure;
 use App\Form\ContactType;
 use App\Entity\Resistance;
 use App\Entity\Signalement;
+use App\Repository\AgentRepository;
 use App\Repository\NumeroRepository;
 use App\Repository\SoucheRepository;
 use App\Repository\ServiceRepository;
@@ -27,6 +29,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -41,7 +44,7 @@ class SignalementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('numero', IntegerType::class, [
+            ->add('numero', TelType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => '6',
@@ -75,14 +78,19 @@ class SignalementType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
                 'label' => 'Date du signalement',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\LessThan("today")
+                ]
             ])
             ->add('structure', EntityType::class,[
                 'class' => Structure::class,
+                'autocomplete' => true,
                 'query_builder' => function (StructureRepository $r) {
                     return $r->createQueryBuilder('i')
                     ->orderBy('i.nom', 'ASC');
@@ -97,40 +105,57 @@ class SignalementType extends AbstractType
                 'choice_label' => 'nom',
                 // 'multiple' => true,
             ])
-            ->add('organisme', EntityType::class,[
-                'class' => Organisme::class,
-                'query_builder' => function (OrganismeRepository $r) {
-                    return $r->createQueryBuilder('i')
-                    ->orderBy('i.type', 'ASC');
-                },
-                'attr' => [
-                    'class' => 'test'
-                ],
-                'label' => "Organisme",
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],                                
-                'choice_label' => 'type',
-                'multiple' => true,
-                'expanded' => true,                
-            ])
-            ->add('resistance', EntityType::class,[
-                'class' => Resistance::class,
-                'query_builder' => function (ResistanceRepository $r) {
-                    return $r->createQueryBuilder('i')
-                    ->orderBy('i.type', 'ASC');
-                },
-                'attr' => [
-                    'class' => 'test'
-                ],
-                'label' => "Resistance",
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],                                
-                'choice_label' => 'type',
-                'multiple' => true,
-                'expanded' => true,                
-            ])
+            // ->add('agent', EntityType::class,[
+            //     'class' => Agent::class,
+            //     // 'autocomplete' => true,
+            //     'query_builder' => function (AgentRepository $r) {
+            //         return $r->createQueryBuilder('i')
+            //         ->orderBy('i.id', 'ASC');
+            //     },
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ],
+            //     'label' => "Nom de l'agent infectieux",
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],
+            //     'choice_label' => 'organisme',
+            //     'multiple' => true,
+            // ])
+            // ->add('organisme', EntityType::class,[
+            //     'class' => Organisme::class,
+            //     'query_builder' => function (OrganismeRepository $r) {
+            //         return $r->createQueryBuilder('i')
+            //         ->orderBy('i.type', 'ASC');
+            //     },
+            //     'attr' => [
+            //         'class' => 'test'
+            //     ],
+            //     'label' => "Organisme",
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],                                
+            //     'choice_label' => 'type',
+            //     'multiple' => true,
+            //     // 'expanded' => true,                
+            // ])
+            // ->add('resistance', EntityType::class,[
+            //     'class' => Resistance::class,
+            //     'query_builder' => function (ResistanceRepository $r) {
+            //         return $r->createQueryBuilder('i')
+            //         ->orderBy('i.type', 'ASC');
+            //     },
+            //     'attr' => [
+            //         'class' => 'test'
+            //     ],
+            //     'label' => "Resistance",
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],                                
+            //     'choice_label' => 'type',
+            //     'multiple' => true,
+            //     // 'expanded' => true,                
+            // ])
             ->add('infection', EntityType::class,[
                 'class' => Infection::class,
                 'query_builder' => function (InfectionRepository $r) {
@@ -224,6 +249,15 @@ class SignalementType extends AbstractType
                 'label' => false,
                 'entry_options' => ['label' => false ],
                 'attr' => ['data-controller' => 'form-contact'],
+            ])
+            ->add('agent', CollectionType::class,[
+                'entry_type' => AgentType::class,
+                'allow_add' => true,
+                'by_reference' => false,
+                // 'required' => false,
+                'label' => false,
+                'entry_options' => ['label' => false ],
+                'attr' => ['data-controller' => 'form-agent'],
             ])
             ->add('epidemie', ChoiceType::class, [
                 'attr' => [

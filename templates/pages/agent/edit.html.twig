@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Étiologie{% endblock %}
+
+{% block body %}
+    <div class='container mt-4'>
+        <h1>Modifier un agent infectieux</h1>
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.organisme) }}      
+            {{ form_widget(form.organisme) }}
+            <div class="form-error">{{ form_errors(form.organisme) }}</div>
+            {# {{ form_help(form.name) }} #}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.resistance) }}      
+            {{ form_widget(form.resistance) }}
+            <div class="form-error">{{ form_errors(form.resistance) }}</div>
+            {# {{ form_help(form.name) }} #}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.submit, { 'label': "Modifier l'agent infectieux"}) }}    
+        </div>
+        {{ form_end(form) }}
+    <div>
+
+
+{% endblock %}
