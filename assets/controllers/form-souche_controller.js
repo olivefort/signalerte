@@ -4,7 +4,7 @@ export default class extends Controller {
     connect() {
         this.index = this.element.childElementCount
         const btn = document.createElement('button');
-        btn.setAttribute('class', 'btn btn-secondary');
+        btn.setAttribute('class', 'btn btn-secondary mt-4');
         btn.innerText = 'ajouter une souche';
         btn.setAttribute('type', 'button');
         btn.addEventListener('click', this.addElement);

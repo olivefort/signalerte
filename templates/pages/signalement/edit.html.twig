@@ -8,8 +8,9 @@
 
         {{ form_start(form) }}
 
-        <div class='grid' data-controller="signalement">
-            <div class="form-group g-col-6">
+        <div class="row" data-controller="signalement">
+
+            <div class="form-group col-4">
                 {{ form_row(form.type, {
                     attr: {
                         'data-signalement-target': 'type',
@@ -18,7 +19,7 @@
                 }) }}
             </div>
 
-            <div class="form-group g-col-6">
+            <div class="form-group col-4">
                 {{ form_row(form.numero, {
                     attr: {
                         'data-signalement-target': 'numero',
@@ -26,24 +27,81 @@
                 }) }}
             </div>
 
-            <div class="form-group">
-                {{ form_label(form.structure) }}      
-                {{ form_widget(form.structure) }}
-                <div class="form-error">{{ form_errors(form.structure) }}</div>            
+            <div class="form-group col-4">
+                {{ form_row(form.date) }}
+            </div>
+
+
+            <div class="form-group col-4">
+                {{ form_row(form.structure) }}
             </div>
 
             <div class="form-group">
-                {{ form_label(form.date) }}      
-                {{ form_widget(form.date) }}
-                <div class="form-error">{{ form_errors(form.date) }}</div>              
+                {{ form_row(form.agent, {
+                    attr: {
+                        'data-signalement-target': 'agent',
+                        'data-action' : 'click->signalement#agentNew'
+                    }
+                }
+                ) }}
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-4">
                 {{ form_label(form.infection) }}      
                 {{ form_widget(form.infection) }}      
             </div>
-        
+
+            <div class="form-group col-4">
+                {{ form_row(form.cas, {
+                    attr: {'data-signalement-target': 'cas',
+                    'data-action' : 'change->signalement#updateCas          change->signalement#updateScore'               
+                    }
+                }) }}
+            </div> 
+
+            <div class="form-group col-4">
+                {{ form_row(form.epidemie, {
+                    attr: {'data-signalement-target': 'epidemie'}
+                }) }}
+            </div> 
+
+            <div class="form-group">                
+                {{ form_row(form.service, 
+                    {
+                    attr: {
+                        'data-signalement-target': 'service',
+                        'data-action' : 'click->signalement#serviceNew'
+                    }
+                }
+                ) }}                    
+            </div>
+
             <div class="form-group">
+                {{ form_row(form.commentaire) }}                   
+            </div>
+
+            
+            <div class="form-group">
+                {{ form_row(form.souche, 
+                    {
+                    attr: {
+                        'data-signalement-target': 'souche',
+                        'data-action' : 'click->signalement#soucheNew'
+                    }
+                }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.contact, 
+                    {
+                    attr: {
+                        'data-signalement-target': 'contact',
+                        'data-action' : 'click->signalement#contactNew'
+                    }
+                }) }}
+            </div>   
+        
+            <div class="form-group col-6">
                 {{ form_row(form.etiologie, {
                     attr: {
                         'data-signalement-target': 'etiologie',
@@ -52,7 +110,7 @@
                 }) }}
             </div>        
 
-            <div class="form-group">
+            <div class="form-group col-6">
                 {{ form_row(form.gravite, {
                     attr: {
                         'data-signalement-target' : 'gravite',
@@ -61,7 +119,7 @@
                 }) }}
             </div> 
 
-            <div class="form-group">
+            <div class="form-group col-6">
                 {{ form_row(form.population, {
                     attr: {
                         'data-signalement-target' : 'population',
@@ -70,7 +128,7 @@
                 }) }}
             </div> 
 
-            <div class="form-group">
+            <div class="form-group col-6">
                 {{ form_row(form.reco, {
                     attr: {
                         'data-signalement-target' : 'reco',
@@ -79,7 +137,7 @@
                 }) }}
             </div> 
 
-            <div class="form-group">
+            <div class="form-group col-4">
                 {{ form_row(form.mesure, {
                     attr: {
                         'data-signalement-target' : 'mesure',
@@ -88,7 +146,7 @@
                 }) }}
             </div>   
 
-            <div class="form-group">
+            <div class="form-group col-4">
                 {{ form_row(form.capacite, {
                     attr: {
                         'data-signalement-target' : 'capacite',
@@ -97,79 +155,83 @@
                 }) }}
             </div> 
 
-            <div class="form-group">
+            <div class="form-group col-4">
                 {{ form_row(form.impact, {
                     attr: {
                         'data-signalement-target' : 'impact',
                         'data-action' : 'change->signalement#updateScore'
                     }
                 }) }}
-            </div> 
-
-            <div class="form-group">
-                {{ form_row(form.cas, {
-                    attr: {'data-signalement-target': 'cas',
-                    'data-action' : 'change->signalement#updateCas change->signalement#updateScore'               
-                    }
-                }) }}
-            </div> 
-
-            <div class="form-group">
-                {{ form_row(form.epidemie, {
-                    attr: {'data-signalement-target': 'epidemie'}
-                }) }}
-            </div> 
+            </div>             
            
-            <div class="form-group">
+            <div class="form-group col-3">
                 {{ form_row(form.score, {
                     attr: {'data-signalement-target': 'score'}
                 }) }}
             </div> 
 
-            <div class="form-group">
-                {{ form_row(form.service) }}                   
-            </div>
+            
 
-            <div class="form-group">
-                {{ form_row(form.commentaire) }}                   
+            
+            <div class="col-12 score">
+                <div class="p-3 border border-2 rounded border-black eta ars">
+                    <h3>ARS</h3>
+                    <div class="form-group note">
+                        {{ form_row(form.ARS, {
+                            attr: {
+                                'data-signalement-target' : 'ARS',
+                                'data-action' : 'change->signalement#colorNote'
+                            }
+                        })}}                   
+                    </div>
+                    <div class="form-group note">
+                        {{ form_row(form.clotureARS) }}                   
+                    </div>
+                </div>
+                <div class="p-3 border border-2 rounded border-black eta es">
+                    <h3>ES</h3>
+                    <div class="form-group note">
+                        {{ form_row(form.ES, {
+                            attr: {
+                                'data-signalement-target' : 'ES',
+                                'data-action' : 'change->signalement#colorNote'
+                            }
+                        }) }}                   
+                    </div>
+                    <div class="form-group note">
+                        {{ form_row(form.clotureES) }}                   
+                    </div>
+                </div>
+                <div class="p-3 border border-2 rounded border-black eta cpias">
+                    <h3>CPIAS</h3>
+                    <div class="form-group note">
+                        {{ form_row(form.CPIAS, {
+                            attr: {
+                                'data-signalement-target' : 'CPIAS',
+                                'data-action' : 'change->signalement#colorNote'
+                            }
+                        }) }}                   
+                    </div>
+                    <div class="form-group note">
+                        {{ form_row(form.clotureCPIAS) }}                   
+                    </div>
+                </div>
+                <div class="p-3 border border-2 rounded border-black eta spf">
+                    <h3>SPF</h3>
+                    <div class="form-group note">
+                        {{ form_row(form.SPF, {
+                            attr: {
+                                'data-signalement-target' : 'SPF',
+                                'data-action' : 'change->signalement#colorNote'
+                            }
+                        }) }}                   
+                    </div>
+                    <div class="form-group note cal">
+                        {{ form_row(form.clotureSPF) }}                   
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                {{ form_row(form.ARS) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.clotureARS) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.ES) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.clotureES) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.CPIAS) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.clotureCPIAS) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.SPF) }}                   
-            </div>
-            <div class="form-group">
-                {{ form_row(form.clotureSPF) }}                   
-            </div>
-
-            <div class="form-group">
-                {{ form_row(form.souche) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_row(form.contact) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_row(form.agent) }}
-            </div>
+                     
 
             <div class="form-group modif">
                 {{ form_row(form.submit, { 'label': 'Modifier le signalement'}) }} 

@@ -19,6 +19,7 @@ class SoucheType extends AbstractType
     {
         $builder
             ->add('laboratoire', ChoiceType::class, [
+                
                 'attr' => [
                     'class' => 'form-select'
                 ],

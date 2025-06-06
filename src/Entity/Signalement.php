@@ -71,8 +71,8 @@ class Signalement
     private string $impact;
 
     #[ORM\Column(type: 'integer')]
-    // #[Assert\Positive()]
-    // #[Assert\NotNull()]
+    #[Assert\Positive()]
+    #[Assert\NotNull()]
     private int $score;
 
     #[ORM\ManyToOne(inversedBy: 'signalements')]

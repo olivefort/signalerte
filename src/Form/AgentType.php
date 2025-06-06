@@ -27,22 +27,22 @@ class AgentType extends AbstractType
                     ->orderBy('i.type', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'test'
+                    'class' => 'organisme'
                 ],
                 'label' => "Organisme",
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-1'
                 ],                                
                 'choice_label' => 'type',
             ])
             ->add('resistance', EntityType::class,[
                 'class' => Resistance::class,
                 'query_builder' => function (ResistanceRepository $r) {
-                    return $r->createQueryBuilder('i')
-                    ->orderBy('i.type', 'ASC');
+                    return $r->createQueryBuilder('i');
+                    // ->orderBy('i.type');
                 },
                 'attr' => [
-                    'class' => 'test'
+                    'class' => 'resistance'
                 ],
                 'label' => "Resistance",
                 'label_attr' => [
@@ -52,15 +52,6 @@ class AgentType extends AbstractType
                 'multiple' => true,  
                 'expanded' => true,           
             ])            
-            // ->add('submit', SubmitType::class, [
-            //     'attr' => ['class' => 'btn btn-primary mt-4'],
-            //     'label' => "Ajouter l'agent infectieux"
-            // ])
-        //     ->add('signalements', EntityType::class, [
-        //         'class' => Signalement::class,
-        //         'choice_label' => 'id',
-        //         'multiple' => true,
-        //     ])
         ;
     }
 

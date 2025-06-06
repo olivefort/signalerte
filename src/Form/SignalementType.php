@@ -44,6 +44,20 @@ class SignalementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('type', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-select'
+                ],
+                'choices' => [
+                    'ESIN' => 'ESIN',
+                    'Portail' => 'Portail',
+                    'Aucun' => 'Aucun'                   
+                ],
+                'label' => 'Type',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+            ])
             ->add('numero', TelType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -58,20 +72,6 @@ class SignalementType extends AbstractType
                     new Assert\Positive(),
                     new Assert\NotNull()
                 ]
-            ])
-            ->add('type', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-select'
-                ],
-                'choices' => [
-                    'ESIN' => 'ESIN',
-                    'Portail' => 'Portail',
-                    'Aucun' => 'Aucun'                   
-                ],
-                'label' => 'Type',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
@@ -105,6 +105,23 @@ class SignalementType extends AbstractType
                 'choice_label' => 'nom',
                 // 'multiple' => true,
             ])
+            // ->add('structure', EntityType::class,[
+            //     'class' => Structure::class,
+            //     'autocomplete' => true,
+            //     'query_builder' => function (StructureRepository $r) {
+            //         return $r->createQueryBuilder('i')
+            //         ->orderBy('i.finessG', 'ASC');
+            //     },
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ],
+            //     'label' => "Finess de la structure",
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],
+            //     'choice_label' => 'finessG',
+            //     'multiple' => true,
+            // ])
             // ->add('agent', EntityType::class,[
             //     'class' => Agent::class,
             //     // 'autocomplete' => true,
@@ -146,7 +163,7 @@ class SignalementType extends AbstractType
             //         ->orderBy('i.type', 'ASC');
             //     },
             //     'attr' => [
-            //         'class' => 'test'
+            //         'class' => 'test3'
             //     ],
             //     'label' => "Resistance",
             //     'label_attr' => [
@@ -156,6 +173,15 @@ class SignalementType extends AbstractType
             //     'multiple' => true,
             //     // 'expanded' => true,                
             // ])
+            ->add('agent', CollectionType::class,[
+                'entry_type' => AgentType::class,
+                'allow_add' => true,
+                'by_reference' => false,
+                // 'required' => false,
+                'label' => false,
+                'entry_options' => ['label' => false ],
+                'attr' => ['data-controller' => 'form-agent', 'class' => 'agents'],
+            ])
             ->add('infection', EntityType::class,[
                 'class' => Infection::class,
                 'query_builder' => function (InfectionRepository $r) {
@@ -211,7 +237,7 @@ class SignalementType extends AbstractType
                     ->orderBy('i.nom', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'test'
+                    'class' => 'service'
                 ],
                 'label' => "Service",
                 'label_attr' => [
@@ -239,7 +265,7 @@ class SignalementType extends AbstractType
                 'prototype' => true,
                 'label' => false,
                 'entry_options' => ['label' => false ],
-                'attr' => ['data-controller' => 'form-souche'],
+                'attr' => ['data-controller' => 'form-souche', 'class' => 'souche'],
             ])
             ->add('contact', CollectionType::class,[
                 'entry_type' => ContactType::class,
@@ -248,16 +274,7 @@ class SignalementType extends AbstractType
                 // 'required' => false,
                 'label' => false,
                 'entry_options' => ['label' => false ],
-                'attr' => ['data-controller' => 'form-contact'],
-            ])
-            ->add('agent', CollectionType::class,[
-                'entry_type' => AgentType::class,
-                'allow_add' => true,
-                'by_reference' => false,
-                // 'required' => false,
-                'label' => false,
-                'entry_options' => ['label' => false ],
-                'attr' => ['data-controller' => 'form-agent'],
+                'attr' => ['data-controller' => 'form-contact', 'class' => 'contact'],
             ])
             ->add('epidemie', ChoiceType::class, [
                 'attr' => [
@@ -360,7 +377,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
-                'label' => 'Note ARS',
+                'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -371,7 +388,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Date de la cloture ARS',
+                'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -386,7 +403,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
-                'label' => 'Note ES',
+                'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -397,7 +414,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Date de la cloture ES',
+                'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -412,7 +429,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
-                'label' => 'Note CPIAS',
+                'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -423,7 +440,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Date de la cloture CPIAS',
+                'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -438,7 +455,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
-                'label' => 'Note SPF',
+                'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -449,7 +466,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Date de la cloture SPF',
+                'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
