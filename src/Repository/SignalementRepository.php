@@ -20,10 +20,10 @@ class SignalementRepository extends ServiceEntityRepository
 
     public function findBySearch(SearchData $searchData): PaginatorInterface
     {
-        $data = $this->createQueryBuilder('u');
-            // ->from(Signalement::class, 'u')
-            // ->where('u.type LIKE :type')
-            // ->setParameter('type', '%%');
+        $data = $this->createQueryBuilder('u')
+            ->from(Signalement::class, 'u')
+            ->where('u.type LIKE :type')
+            ->setParameter('type', '%%');
             // ->addOrderBy('p.createdAt', 'DESC');
 
         if(!empty($searchData->q)){
