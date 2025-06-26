@@ -77,15 +77,14 @@ export default class extends Controller {
     agentNew(){  
         const agentdiv = document.querySelectorAll('.agents > div');
         for (let i = 0; i < agentdiv.length; i++) {     
-            agentdiv[i].className = "agent"
+            agentdiv[i].className = "agent my-2 p-3 border border-2 rounded border-black"
             agentdiv[i].setAttribute('id','agent_'+i)           
         }
 
-        const agentPart = document.querySelectorAll(".agent");        
-        for (let i = 0; i < agentPart.length; i++) {
-            agentPart[i].childNodes[0].className = "signalagent my-2 p-3 border border-2 rounded border-black"
-            // agentPart[i].className = "part"
-        }
+        // const agentPart = document.querySelectorAll(".agent");        
+        // for (let i = 0; i < agentPart.length; i++) {
+        //     agentPart[i].childNodes[0].className = "signalagent my-2 p-3 border border-2 rounded border-black"
+        // }
 
         const signalagent = document.querySelectorAll(".signalagent")        
         for (let i = 0; i < signalagent.length; i++) {
@@ -94,17 +93,7 @@ export default class extends Controller {
             signalagent[i].firstChild.style.flexDirection = "column"
             signalagent[i].lastChild.className = "resistances"
             signalagent[i].lastChild.style.flexDirection = "column"
-            signalagent[i].lastChild.style.display = "flex"
-            // if(signalagent[i].id != "signalement_agent_0"){
-            //     const del = document.createElement('button')
-            //     del.setAttribute('class', 'btn btn-secondary mt-4');
-            //     del.innerText = 'supp';
-            //     del.setAttribute('type', 'button');
-            //     del.addEventListener('click', () => {
-            //         signalagent[i].remove()                                
-            //     });
-            //     signalagent[i].appendChild(del) 
-            // }
+            signalagent[i].lastChild.style.display = "flex"    
         }
 
         const resistance = document.querySelectorAll('.resistance')        
@@ -117,71 +106,8 @@ export default class extends Controller {
             }
             resistance[i].style.gridTemplateRows = "minmax(25px)"      
             resistance[i].style.rowGap = ".5rem"         
-            // const input = resistance[i].querySelectorAll('input')         
-            // const label = resistance[i].querySelectorAll('label')         
-            resistance[i].lastChild.style.gridColumn = "span 3"
-            // console.log(resistance[i].childNodes)
-            // const cpl = document.createElement('div')
-            // for (let j = 0; j < resistance[i].childElementCount/2; j++) {                
-            //     input[j].className = "input"
-            //     label[j].className = "label"
-            //     const cpl = document.createElement('div')
-            //     cpl.appendChild(input[j])
-            //     cpl.appendChild(label[j])
-            //     resistance[i].appendChild(cpl)                             
-            // }               
-        }
-
-        // resistance.forEach((res)=> {
-        //     res.style.display = "grid"
-        //     res.style.gridTemplateColumns = "repeat(12, 1fr)"
-        //     res.lastChild.style.gridColumn = "span 6"
-        //     const input = res.querySelectorAll('input')         
-        //     const label = res.querySelectorAll('label')  
-        //     for (let j = 0; j < res.childElementCount/2; j++) {                
-        //         input[j].className = "input"
-        //         label[j].className = "label"
-        //         const cpl = document.createElement('div')
-        //         cpl.appendChild(input[j])
-        //         cpl.appendChild(label[j])
-        //         res.appendChild(cpl)
-        //     }
-        // })
-
-
-        
-        // for (let i = 0; i < resistance.childElementCount/2; i++) {
-            
-            
-        // }
-
-        // allAgent.firstChild.className = "organisme col-4"
-        // allAgent.firstChild.style.display = "flex"
-        // allAgent.firstChild.style.flexDirection = "column"
-        // allAgent.lastChild.className = "resistances"        
-        
-        // const input = document.querySelectorAll('.resistance input');
-        // const label = document.querySelectorAll('.resistance label');
-        // const listRez = document.querySelector('.resistance');
-        // listRez.style.display = "grid";
-        // listRez.style.gridTemplateColumns = "repeat(12, 1fr)" 
-        
-        
-        // for (let i = 0; i < input.length; i++) {           
-        //     input[i].className = 'input_res';         
-        //     input[i].style.marginRight = ".5rem";         
-        //     label[i].className = 'lab_res';        
-        //     const couple = document.createElement('div');                            
-        //     listRez.appendChild(couple);
-        //     couple.className = "couple";
-        //     couple.style.gridColumn = "span 3"
-        //     // couple.style.border = "1px solid black"
-        //     couple.appendChild(input[i])
-        //     couple.appendChild(label[i])
-        // }
-    
-        // const last = listRez.lastChild
-        // last.style.gridColumn = "span 6"        
+            resistance[i].lastChild.style.gridColumn = "span 3"        
+        }   
     }
 
     serviceNew(){
@@ -206,40 +132,46 @@ export default class extends Controller {
     }
 
     soucheNew(){
-        const part = document.querySelectorAll('.souche div div div')
-                
+        const part = document.querySelectorAll('.souche div div div')                
         for (let i = 0; i < part.length; i++) {
-            part[i].className = "col-4"
-            part[i].parentNode.className = "parent"
+            part[i].className = "col-4"            
+            part[i].parentNode.className = "parent souche-parent"
         }
-        const parent = document.querySelectorAll('.parent')
-        for (let i = 0; i < parent.length; i++) {
-            parent[i].style.display = "flex"
-            parent[i].style.flexDirection = "row"
-            parent[i].style.gap = "1.5rem"            
-        }
-        
+        const parent = document.querySelectorAll('.souche-parent')
+        // if(parent){
+            for (let i = 0; i < parent.length; i++) {
+                parent[i].style.display = "flex"
+                parent[i].style.flexDirection = "row"
+                parent[i].style.gap = "1.5rem"    
+                // parent[i].children[2].className = "col-3"   
+                
+            }
+        // }
     }  
 
     contactNew(){       
         const part = document.querySelectorAll('.contact div div div');
+        console.log(part)
         for (let i = 0; i < part.length; i++) {
             part[i].className = "col-6"
-            part[i].parentNode.className = "parent"
+            part[i].parentNode.className = "parent contact-parent"
         }
-        const parent = document.querySelectorAll('.parent')
-        for (let i = 0; i < parent.length; i++) {
-            parent[i].style.display = "flex"
-            parent[i].style.flexDirection = "row"
-            parent[i].style.gap = "1.5rem"            
-        }
+        const parent = document.querySelectorAll('.contact-parent')
+        // if(parent){
+            for (let i = 0; i < parent.length; i++) {
+                parent[i].style.display = "flex"
+                parent[i].style.flexDirection = "row"
+                parent[i].style.gap = "1.5rem"    
+                // parent[i].children[1].className = "col-5"   
+                         
+            }
+        // }
     }
 
     colorNote(){
         const test = document.querySelectorAll('.note .form-select');
         const eta = document.querySelectorAll('.eta');
         const cal = document.querySelectorAll('.eta .note')
-        // console.log(test.length)
         for (let i = 0; i < test.length; i++) {            
             if (test[i].selectedIndex == 1) {           
                 eta[i].style.backgroundColor = "#92f089"
@@ -254,18 +186,17 @@ export default class extends Controller {
         this.ARSTarget.style.backgroundColor = ""
         this.ESTarget.style.backgroundColor = ""
         this.CPIASTarget.style.backgroundColor = ""
-        this.SPFTarget.style.backgroundColor = ""
+        this.SPFTarget.style.backgroundColor = ""        
+    }
+
+    resumeIndex(){
+        const resume = document.querySelectorAll('.resume');
+        for (let i = 0; i < resume.length; i++) {
+            // resume[i].style.display = 'grid'
+            // resume[i].style.gridTemplateColumns = "repeat(12, 1fr)"
+            console.log(resume[i])
+        }
         
-        // const ars = document.querySelector('.ars')
-        // if(select == 1){
-        //     ars.style.backgroundColor = "green"
-        // }else if(select == 2){
-        //     ars.style.backgroundColor = "blue"
-        // }else if(select == 3){
-        //     ars.style.backgroundColor = "red"
-        // }else{
-        //     ars.style.backgroundColor = "grey"
-        // }
     }
 
     connect(){
@@ -274,9 +205,9 @@ export default class extends Controller {
         this.soucheNew()
         this.contactNew()
         this.colorNote()
+        this.resumeIndex()
      
         const scoreEtablissement = document.querySelector('.score')
-        // console.log(scoreEtablissement)
         scoreEtablissement.style.display = "grid"
         scoreEtablissement.style.gridTemplateColumns = "repeat(12, 1fr)"
         scoreEtablissement.style.columnGap = "1rem"
@@ -299,7 +230,7 @@ export default class extends Controller {
     
        
         
-    }
+}
     
     
  

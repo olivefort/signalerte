@@ -31,6 +31,7 @@ class SoucheType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'empty_data' =>''
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
@@ -42,6 +43,7 @@ class SoucheType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'empty_data' =>''
             ])
             ->add('numero', IntegerType::class, [
                 'attr' => [
@@ -54,7 +56,8 @@ class SoucheType extends AbstractType
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\NotNull()
-                ]
+                ],
+                'empty_data' =>''
             ])
         ;
     }

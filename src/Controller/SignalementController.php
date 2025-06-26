@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Entity\Signalement;
 use App\Form\SignalementType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,11 +23,24 @@ final class SignalementController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchData -> page = $request->query->getInt('page', 1);
+            $post = $repository->findBySearch($searchData);
+            return $this->render('pages/signalement/index.html.twig', [
+                'form'=> $form,
+                'posts' => $posts
+            ]);
+        }
+
         $signalements = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page',1), 20
         );
         return $this->render('pages/signalement/index.html.twig', [
+            'form' => $form->createView(),
             'signalements' => $signalements
         ]);
     }

@@ -1,6 +1,7 @@
-/* body {
+body {
     background-color: rgb(255, 241, 253);
-} */
-/* .entetesign {
-    font-size: 0.7rem;
-} */
+}
+.resume {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}

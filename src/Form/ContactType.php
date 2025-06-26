@@ -30,6 +30,7 @@ class ContactType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'empty_data' =>''
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
@@ -41,6 +42,7 @@ class ContactType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'empty_data' =>''
             ])
         ;
     }

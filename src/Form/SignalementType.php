@@ -176,6 +176,7 @@ class SignalementType extends AbstractType
             ->add('agent', CollectionType::class,[
                 'entry_type' => AgentType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 // 'required' => false,
                 'label' => false,
@@ -260,16 +261,19 @@ class SignalementType extends AbstractType
             ->add('souche', CollectionType::class,[
                 'entry_type' => SoucheType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 // 'required' => false,
                 'prototype' => true,
                 'label' => false,
                 'entry_options' => ['label' => false ],
                 'attr' => ['data-controller' => 'form-souche', 'class' => 'souche'],
+
             ])
             ->add('contact', CollectionType::class,[
                 'entry_type' => ContactType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 // 'required' => false,
                 'label' => false,

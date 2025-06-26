@@ -12,41 +12,50 @@
         </div>
     {% endfor %}
     
-        <h1>Liste des Signalements</h1>
+        <h1 class="text-center">Liste des Signalements</h1>
 
-        <a href="{{ path('signalement.new')}}" class="btn btn-primary">Créer une alerte</a>
+        <a href="{{ path('signalement.new')}}" class="btn btn-primary mx-2 mb-3">Créer une alerte</a>
+
+        {% include 'components/_search_data.html.twig' with {
+            form: form
+        } only %}
 
         <div class="row" data-controller="index">
             {% for signalement in signalements %}
-            <a class=" col-4 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
+            <a class=" col-12 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
                 <div class="card text-white bg-info mb-3 mx-2" style="max-width: 20rem;">
-                    <div class="card-header">signalement n°{{signalement.id}}</div>
+                    {# <div class="card-header">signalement n°{{signalement.id}}</div> #}
+                    <div class="card-header">{{signalement.numero}} - {{signalement.type}}</div>
                     <div class="card-body">
-                        <h4 class="card-title">                           
+                        {# <h4 class="card-title">                           
                             {{signalement.numero}} - {{signalement.type}}                             
-                        </h4>
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Établissement</span> : {{signalement.structure.nom}}</p>
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Finess</span> : {{signalement.structure.finessG}}</p></p>
-                        {# <p class="card-text"><span class="badge rounded-pill bg-success">Agent</span> : </p> #}
-                        {# {% for organisme in signalement.organisme %}
-                            <span class="organisme">{{organisme.type}}</span>
-                        {% endfor %} #}
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Agent Infectieux</span> :</p>
-                        {% for agent in signalement.agent %}
-                        <div>
-                            <ul>
-                                <li> : {{agent.organisme}}</li>
-                                {% for resistance in agent.resistance %}
+                        </h4> #}
+                        <div class="col-12 resume">
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Établissement</span><span class="text-center">{{signalement.structure.nom}}</p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Finess</span><span class="text-center">{{signalement.structure.finessG}}</span></p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Infection</span><span class="text-center">{{signalement.infection}}</span></p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Cas</span><span class="text-center">{{signalement.cas}}</span></p>
+                            {# <p class="card-text"><span class="badge rounded-pill bg-success">Agent</span> : </p> #}
+                            {# {% for organisme in signalement.organisme %}
+                                <span class="organisme">{{organisme.type}}</span>
+                            {% endfor %} #}
+                            <div class="card-text d-flex flex-column p-1">
+                                <span class="badge rounded-pill bg-success">Agent Infectieux</span>
+                            {% for agent in signalement.agent %}
+                                <div>
                                     <ul>
-                                        <li>{{ resistance.type}}</li>
+                                        <li>{{agent.organisme}}</li>
+                                        {% for resistance in agent.resistance %}
+                                            <ul>
+                                                <li>{{ resistance.type}}</li>
+                                            </ul>
+                                        {% endfor %}
                                     </ul>
-                                {% endfor %}
-                            </ul>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            <p class="card-text score-index d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Score</span><span class="score text-center">{{signalement.score}}</span></p>
                         </div>
-                        {% endfor %}
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Infection</span> : {{signalement.infection}}</p>
-                        <p class="card-text"><span class="badge rounded-pill bg-success">Cas</span> : {{signalement.cas}}</p>
-                        <p class="card-text score-index"><span class="badge rounded-pill bg-success">Score</span> : <span class="score">{{signalement.score}}</span></p>
                     </div>
                 </div> 
             </a>
