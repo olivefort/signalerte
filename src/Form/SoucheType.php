@@ -29,7 +29,7 @@ class SoucheType extends AbstractType
                 ],
                 'label' => 'Labo',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'empty_data' =>''
             ])
@@ -41,7 +41,7 @@ class SoucheType extends AbstractType
                 ],
                 'label' => "Date de l'envoi",
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'empty_data' =>''
             ])
@@ -51,7 +51,7 @@ class SoucheType extends AbstractType
                 ],
                 'label' => 'Numéro de la souche',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'constraints' => [
                     new Assert\Positive(),

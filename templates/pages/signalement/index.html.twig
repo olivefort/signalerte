@@ -3,7 +3,7 @@
 {% block title %}Signalements{% endblock %}
 
 {% block body %}
-    <div class="mt-4">
+    <div class="grid">
 
 
     {% for message in app.flashes('success') %}
@@ -12,36 +12,43 @@
         </div>
     {% endfor %}
     
-        <h1 class="text-center">Liste des Signalements</h1>
+        <h1 class="col12 m2">Liste des Signalements</h1>
 
-        <a href="{{ path('signalement.new')}}" class="btn btn-primary mx-2 mb-3">Créer une alerte</a>
+        <div class="side">
+            <a href="{{ path('signalement.new')}}" class="btn btn-secondary mx-2 mb-3 w-100">Créer une alerte</a>
+            {% include 'pages/signalement/_filter.html.twig' with {form: form} only %}
+        </div>
 
-        {% include 'components/_search_data.html.twig' with {
+        {# {% include 'components/_search_data.html.twig' with {
             form: form
-        } only %}
+        } only %} #}
 
-        <div class="row" data-controller="index">
+        {# {% include 'components/filtre_signalement.html.twig' with {filtre: form} only%} #}
+
+        <div class="row list" data-controller="index">
             {% for signalement in signalements %}
             <a class=" col-12 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
                 <div class="card text-white bg-info mb-3 mx-2" style="max-width: 20rem;">
                     {# <div class="card-header">signalement n°{{signalement.id}}</div> #}
-                    <div class="card-header">{{signalement.numero}} - {{signalement.type}}</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div>{{signalement.numero}} - {{signalement.type}}</div>
+                        <div>{{signalement.date|date('d/m/Y')}}</div>
+                    </div>
                     <div class="card-body">
                         {# <h4 class="card-title">                           
                             {{signalement.numero}} - {{signalement.type}}                             
                         </h4> #}
-                        <div class="col-12 resume">
-                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Établissement</span><span class="text-center">{{signalement.structure.nom}}</p>
-                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Finess</span><span class="text-center">{{signalement.structure.finessG}}</span></p>
-                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Infection</span><span class="text-center">{{signalement.infection}}</span></p>
-                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Cas</span><span class="text-center">{{signalement.cas}}</span></p>
-                            {# <p class="card-text"><span class="badge rounded-pill bg-success">Agent</span> : </p> #}
-                            {# {% for organisme in signalement.organisme %}
-                                <span class="organisme">{{organisme.type}}</span>
-                            {% endfor %} #}
-                            <div class="card-text d-flex flex-column p-1">
-                                <span class="badge rounded-pill bg-success">Agent Infectieux</span>
-                            {% for agent in signalement.agent %}
+                        <div class="resume w-100">
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Établissement</span><span class="text-center">{{signalement.structure.nom}}</p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Finess</span><span class="text-center">{{signalement.structure.finessG}}</span></p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Infection</span><span class="text-center">{{signalement.infection}}</span></p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Cas</span><span class="text-center">{{signalement.cas}}</span></p>
+                            <p class="card-text score-index d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Score</span><span class="score text-center">{{signalement.score}}</span></p>
+                        </div>
+                        <div class="card-text d-flex flex-column p-1">
+                            <span class="badge rounded-pill bg-secondary">Agent Infectieux</span>
+                                <div class="d-flex flex-row">
+                                {% for agent in signalement.agent %}
                                 <div>
                                     <ul>
                                         <li>{{agent.organisme}}</li>
@@ -52,9 +59,8 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
-                            {% endfor %}
-                            </div>
-                            <p class="card-text score-index d-flex flex-column p-1"><span class="badge rounded-pill bg-success">Score</span><span class="score text-center">{{signalement.score}}</span></p>
+                                {% endfor %}
+                                </div>
                         </div>
                     </div>
                 </div> 
@@ -158,7 +164,7 @@
             </tbody>
         </table> #}
         <div class="d-flex justify-content-center">
-            {{ knp_pagination_render(signalements)}}
+            {# {{ knp_pagination_render(signalements)}} #}
         </div>
     </div>
 {% endblock %}

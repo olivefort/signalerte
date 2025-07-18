@@ -7,8 +7,52 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/minty/bootstrap.min.css" integrity="sha512-+/uDiVv4ZLhHnXToJFPwYK08kkG2et1rSuiitOl+0hdzmx2N6HQaMqm/7ORzr8dhco+cyGZCRxkXU7EMMYOLfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/minty/bootstrap.rtl.min.css" integrity="sha512-gKDEIPM2feBD3raqbhlzCmBAwxUV/xgsX+znn3/0m6hRfVXMy0jAJ4pB0dD7LVpwDRIxYPhS+hP/gQRZdHGbrA==" crossorigin="anonymous" referrerpolicy="no-referrer" />            
-            <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
+            {# <link rel="stylesheet" href="{{ asset('styles/app.scss') }}"> #}
         {% endblock %}
+        <style>
+            .grid {
+                display : grid;
+                grid-template-columns : repeat(12, 1fr);
+                grid-column-gap : 1rem;
+            }
+            .grid4{
+                display : grid;
+                grid-template-columns : repeat(4, 1fr);
+                grid-column-gap : 1rem;
+            }
+            .col3 {
+                grid-column : span 3;
+            }
+            .col4 {
+                grid-column : span 4;                
+            }
+            .col6{
+                grid-column : span 6;
+            }
+            .col12 {
+                grid-column : span 12;
+            }
+            .m2{
+                margin : 2rem;
+            }
+            .side {
+                display : block;
+                position : sticky;
+                grid-column : 1/4;
+                top : .2rem;
+                padding : 1rem;
+            }
+            .list {
+                grid-column : 4/13;
+                padding : 1rem;
+            }
+            .groupe {
+                border : 2px black solid;
+                border-radius : 10px;
+                margin : .5rem 0;
+                padding : .5rem
+            }
+        </style>
 
         {% block javascripts %}
             {% block importmap %}

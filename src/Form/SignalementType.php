@@ -105,74 +105,6 @@ class SignalementType extends AbstractType
                 'choice_label' => 'nom',
                 // 'multiple' => true,
             ])
-            // ->add('structure', EntityType::class,[
-            //     'class' => Structure::class,
-            //     'autocomplete' => true,
-            //     'query_builder' => function (StructureRepository $r) {
-            //         return $r->createQueryBuilder('i')
-            //         ->orderBy('i.finessG', 'ASC');
-            //     },
-            //     'attr' => [
-            //         'class' => 'form-select'
-            //     ],
-            //     'label' => "Finess de la structure",
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ],
-            //     'choice_label' => 'finessG',
-            //     'multiple' => true,
-            // ])
-            // ->add('agent', EntityType::class,[
-            //     'class' => Agent::class,
-            //     // 'autocomplete' => true,
-            //     'query_builder' => function (AgentRepository $r) {
-            //         return $r->createQueryBuilder('i')
-            //         ->orderBy('i.id', 'ASC');
-            //     },
-            //     'attr' => [
-            //         'class' => 'form-select'
-            //     ],
-            //     'label' => "Nom de l'agent infectieux",
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ],
-            //     'choice_label' => 'organisme',
-            //     'multiple' => true,
-            // ])
-            // ->add('organisme', EntityType::class,[
-            //     'class' => Organisme::class,
-            //     'query_builder' => function (OrganismeRepository $r) {
-            //         return $r->createQueryBuilder('i')
-            //         ->orderBy('i.type', 'ASC');
-            //     },
-            //     'attr' => [
-            //         'class' => 'test'
-            //     ],
-            //     'label' => "Organisme",
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ],                                
-            //     'choice_label' => 'type',
-            //     'multiple' => true,
-            //     // 'expanded' => true,                
-            // ])
-            // ->add('resistance', EntityType::class,[
-            //     'class' => Resistance::class,
-            //     'query_builder' => function (ResistanceRepository $r) {
-            //         return $r->createQueryBuilder('i')
-            //         ->orderBy('i.type', 'ASC');
-            //     },
-            //     'attr' => [
-            //         'class' => 'test3'
-            //     ],
-            //     'label' => "Resistance",
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ],                                
-            //     'choice_label' => 'type',
-            //     'multiple' => true,
-            //     // 'expanded' => true,                
-            // ])
             ->add('agent', CollectionType::class,[
                 'entry_type' => AgentType::class,
                 'allow_add' => true,
@@ -238,7 +170,7 @@ class SignalementType extends AbstractType
                     ->orderBy('i.nom', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'service'
+                    'class' => 'grid4'
                 ],
                 'label' => "Service",
                 'label_attr' => [
@@ -248,7 +180,7 @@ class SignalementType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,                
             ])
-
+            
             ->add('commentaire', TextareaType::class,[
                 'attr' => [
                     'class' => 'form-control',
@@ -479,6 +411,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                'data' => '0',
                 'label' => 'Score Total',
                 'label_attr' => [
                     'class' => 'form-label mt-4'

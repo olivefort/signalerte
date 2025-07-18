@@ -28,7 +28,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Type',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'empty_data' =>''
             ])
@@ -40,7 +40,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => "Date de contact",
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
                 'empty_data' =>''
             ])

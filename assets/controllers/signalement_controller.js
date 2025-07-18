@@ -17,7 +17,7 @@ export default class extends Controller {
         }        
     }
 
-    updateLengthNum(){        
+    updateLengthNum(){
         const type = this.typeTarget.value;       
         const num = document.querySelector("#signalement_numero")
         if(type === 'ESIN'){
@@ -50,7 +50,7 @@ export default class extends Controller {
         cas > 1 ? score = score + 2 : score = score + 1;        
 
         const gravite = this.graviteTarget.value;
-        gravite === "Gravité avérée" ? score = score + 2 : score = score + 1;                   
+        gravite === "Gravité avérée" ? score = score + 2 : score = score + 1;
 
         const population = this.populationTarget.value;
         population === "Population non à risque ou non applicable" ? score = score + 1 : score = score + 2;
@@ -72,6 +72,12 @@ export default class extends Controller {
         
     }
 
+    changeNameClass(){
+        const catchAll = document.querySelectorAll('.souche > .form-group');
+        for (let i = 0; i < catchAll.length; i++) {            
+            catchAll[i].setAttribute('class', 'form-group s-groupe')
+        }
+    }
   
 
     agentNew(){  
@@ -80,12 +86,7 @@ export default class extends Controller {
             agentdiv[i].className = "agent my-2 p-3 border border-2 rounded border-black"
             agentdiv[i].setAttribute('id','agent_'+i)           
         }
-
-        // const agentPart = document.querySelectorAll(".agent");        
-        // for (let i = 0; i < agentPart.length; i++) {
-        //     agentPart[i].childNodes[0].className = "signalagent my-2 p-3 border border-2 rounded border-black"
-        // }
-
+ 
         const signalagent = document.querySelectorAll(".signalagent")        
         for (let i = 0; i < signalagent.length; i++) {
             signalagent[i].firstChild.className = "organisme col-4"
@@ -99,37 +100,37 @@ export default class extends Controller {
         const resistance = document.querySelectorAll('.resistance')        
         for (let i = 0; i < resistance.length; i++) {
             resistance[i].style.display = "grid"
-            if(window.innerWidth > 1400 ){
-                resistance[i].style.gridTemplateColumns = "repeat(12, 1fr)"  
-            }else{
-                resistance[i].style.gridTemplateColumns = "repeat(6, 1fr)"  
-            }
+            resistance[i].style.gridTemplateColumns = "repeat(6, 1fr)"            
             resistance[i].style.gridTemplateRows = "minmax(25px)"      
             resistance[i].style.rowGap = ".5rem"         
             resistance[i].lastChild.style.gridColumn = "span 3"        
-        }   
-    }
-
-    serviceNew(){
-        const input = document.querySelectorAll('.service input');
-        const label = document.querySelectorAll('.service label');
-        const listServ = document.querySelector('.service');
-        listServ.style.display = "grid";
-        listServ.style.gridTemplateColumns = "repeat(12, 1fr)" 
-        
-        
-        for (let i = 0; i < input.length; i++) {           
-            input[i].className = 'input_res';         
-            input[i].style.marginRight = ".5rem";         
-            label[i].className = 'lab_res';        
-            const couple = document.createElement('div');                            
-            listServ.appendChild(couple);
-            couple.className = "couple";
-            couple.style.gridColumn = "span 4"
-            couple.appendChild(input[i])
-            couple.appendChild(label[i])
         }
+
+        const agentPart = document.querySelectorAll('#signalement_agent');
+        console.log(agentPart)
     }
+        
+
+    // serviceNew(){
+    //     const input = document.querySelectorAll('.service input');
+    //     const label = document.querySelectorAll('.service label');
+    //     const listServ = document.querySelector('.service');
+    //     listServ.style.display = "grid";
+    //     listServ.style.gridTemplateColumns = "repeat(12, 1fr)" 
+        
+        
+    //     for (let i = 0; i < input.length; i++) {           
+    //         input[i].className = 'input_res';         
+    //         input[i].style.marginRight = ".5rem";         
+    //         label[i].className = 'lab_res';        
+    //         const couple = document.createElement('div');                            
+    //         listServ.appendChild(couple);
+    //         couple.className = "couple";
+    //         couple.style.gridColumn = "span 4"
+    //         couple.appendChild(input[i])
+    //         couple.appendChild(label[i])
+    //     }
+    // }
 
     soucheNew(){
         const part = document.querySelectorAll('.souche div div div')                
@@ -138,15 +139,11 @@ export default class extends Controller {
             part[i].parentNode.className = "parent souche-parent"
         }
         const parent = document.querySelectorAll('.souche-parent')
-        // if(parent){
-            for (let i = 0; i < parent.length; i++) {
-                parent[i].style.display = "flex"
-                parent[i].style.flexDirection = "row"
-                parent[i].style.gap = "1.5rem"    
-                // parent[i].children[2].className = "col-3"   
-                
-            }
-        // }
+        for (let i = 0; i < parent.length; i++) {
+            parent[i].style.display = "flex"
+            parent[i].style.flexDirection = "row"
+            parent[i].style.gap = "1.5rem"                
+        }        
     }  
 
     contactNew(){       
@@ -156,16 +153,12 @@ export default class extends Controller {
             part[i].className = "col-6"
             part[i].parentNode.className = "parent contact-parent"
         }
-        const parent = document.querySelectorAll('.contact-parent')
-        // if(parent){
-            for (let i = 0; i < parent.length; i++) {
-                parent[i].style.display = "flex"
-                parent[i].style.flexDirection = "row"
-                parent[i].style.gap = "1.5rem"    
-                // parent[i].children[1].className = "col-5"   
-                         
-            }
-        // }
+        const parent = document.querySelectorAll('.contact-parent')        
+        for (let i = 0; i < parent.length; i++) {
+            parent[i].style.display = "flex"
+            parent[i].style.flexDirection = "row"
+            parent[i].style.gap = "1.5rem"
+        }    
     }
 
     colorNote(){
@@ -189,23 +182,22 @@ export default class extends Controller {
         this.SPFTarget.style.backgroundColor = ""        
     }
 
-    resumeIndex(){
-        const resume = document.querySelectorAll('.resume');
-        for (let i = 0; i < resume.length; i++) {
-            // resume[i].style.display = 'grid'
-            // resume[i].style.gridTemplateColumns = "repeat(12, 1fr)"
-            console.log(resume[i])
-        }
+    // resumeIndex(){
+    //     const resume = document.querySelectorAll('.resume');
+    //     for (let i = 0; i < resume.length; i++) {
+           
+    //         console.log(resume[i])
+    //     }
         
-    }
+    // }
 
     connect(){
-        this.agentNew()
-        this.serviceNew()
+        this.agentNew()    
         this.soucheNew()
         this.contactNew()
         this.colorNote()
-        this.resumeIndex()
+        // this.resumeIndex()
+        this.changeNameClass()
      
         const scoreEtablissement = document.querySelector('.score')
         scoreEtablissement.style.display = "grid"
@@ -226,10 +218,7 @@ export default class extends Controller {
                 note[j].style.gridColumn = "span 6"                
             }
         }
-    }
-    
-       
-        
+    } 
 }
     
     

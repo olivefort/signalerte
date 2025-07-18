@@ -27,7 +27,7 @@ class AgentType extends AbstractType
                     ->orderBy('i.type', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'organisme'
+                    'class' => ''
                 ],
                 'label' => "Organisme",
                 'label_attr' => [
@@ -39,7 +39,6 @@ class AgentType extends AbstractType
                 'class' => Resistance::class,
                 'query_builder' => function (ResistanceRepository $r) {
                     return $r->createQueryBuilder('i');
-                    // ->orderBy('i.type');
                 },
                 'attr' => [
                     'class' => 'resistance'

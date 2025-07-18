@@ -31,7 +31,7 @@ class Signalement
 
     #[ORM\Column(type : 'datetime_immutable')]
     #[Assert\NotNull()]
-    private ?\DateTimeImmutable $date;
+    private?\DateTimeImmutable $date;
 
     #[ORM\Column(type : 'integer')]
     #[Assert\Positive()]

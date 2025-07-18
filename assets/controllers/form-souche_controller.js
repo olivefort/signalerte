@@ -9,7 +9,20 @@ export default class extends Controller {
         btn.setAttribute('type', 'button');
         btn.addEventListener('click', this.addElement);
         this.element.childNodes.forEach(this.addDeleteButton)
-        this.element.append(btn)
+        this.element.childNodes.forEach(this.attrib)
+        const signalSouche = document.querySelectorAll('.souche .groupe');
+        for (let i = 0; i < signalSouche.length; i++) {
+            console.log(signalSouche[i].firstChild);
+            signalSouche[i].firstChild.setAttribute('class','grid')
+        }
+        const signalSoucheField = document.querySelectorAll('.souche .form-group');
+        for (let i = 0; i < signalSoucheField.length; i++) {
+            signalSoucheField[i].setAttribute('class','souchePart col4')            
+        }
+        this.element.append(btn)        
+    }
+    attrib = (e)=>{
+        e.setAttribute('class','groupe')
     }
 
     addElement = (e) => {
@@ -20,13 +33,22 @@ export default class extends Controller {
         this.addDeleteButton(element)
         this.index++
         e.currentTarget.insertAdjacentElement('beforebegin',element)
-
+        element.setAttribute('class', 'groupe')
+        element.firstChild.setAttribute('class', 'grid sou')
+        const sou = document.querySelectorAll('.sou')
+        for (let i = 0; i < sou.length; i++) {
+            const souchePart = sou[i].childNodes
+            for (let j = 0; j < souchePart.length; j++) {
+                souchePart[j].setAttribute('class','souchePart col4')
+                
+            }
+        }
     }
 
     addDeleteButton = (item) => {
         // const parent = document.querySelector('.souche-parent')
         const btn = document.createElement('button')
-        btn.setAttribute('class', 'btn btn-secondary mt-1 w-1')
+        btn.setAttribute('class', 'btn btn-secondary mt-2 w-1')
         btn.innerText = this.deleteLabelValue || 'Supprimer la souche'
         btn.setAttribute('type', 'button')
         item.append(btn)
