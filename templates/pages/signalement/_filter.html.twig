@@ -1,26 +1,65 @@
-{{ form_start(form, {attr: {class: 'side'}})}}
+{{ form_start(form, {attr: {class: 'formside'}})}}
 {# {{ form_row(form.q) }} #}
-<p>{{ form_row(form.recherche) }}</p>
-<p>
+<div>{{ form_row(form.q) }}</div>
+<div>
+    <h5>Type de signalement</h5>
+    <div class="row">{{ form_row(form.type) }}</div>
+</div>
+<div>
     <h5>Département</h5>
     {{ form_row(form.departement) }}
-</p>
-<p>
+</div>
+<div>
     <h5>Infection</h5>
     {{ form_row(form.infect) }}
-</p>
-<p>
+</div>
+<div>
+    <h5>Service</h5>
+    {{ form_row(form.serv) }}
+</div>
+<div>
     <h5>Type d'infection</h5>
     <div class="row">{{ form_row(form.epidemie) }}</div>
-</p>
-<p>
+</div>
+<div>
     <h5>Date</h5>
     <div class="row">
         <div class="col-md-6">{{ form_row(form.dateMin) }}</div>
         <div class="col-md-6">{{ form_row(form.dateMax) }}</div>
     </div>
-    <div>
-        <button class="btn btn-secondary w-100 mt-5" type="submit">Valider</button>
+</div>
+<div>
+    <h5>Score</h5>
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.scoreMin) }}</div>
+        <div class="col-md-6">{{ form_row(form.scoreMax) }}</div>
     </div>
-    {{ form_end(form)}}
-</p>
+</div>
+<div>
+    <h5>Cotation</h5>
+    <div class="row">
+        <div class="col-md-3">{{ form_row(form.ARS) }}</div>
+        <div class="col-md-3">{{ form_row(form.ES) }}</div>
+        <div class="col-md-3">{{ form_row(form.CPIAS) }}</div>
+        <div class="col-md-3">{{ form_row(form.SPF) }}</div>
+    </div>
+</div>
+<div>
+    <h5>Souche</h5>
+    <div class="row">
+        <div class="col-md-3">{{ form_row(form.souche) }}</div>
+    </div>
+</div>
+<div>
+    <h5>Contact</h5>
+    <div class="row">
+        {{ form_row(form.contact) }}
+    </div>
+</div>
+<div>
+    <button class="btn btn-secondary w-100 mt-5" type="submit">Valider</button>
+</div>
+<div>
+    <button class="btn btn-secondary w-100 mt-5 reset">Reset</button>
+</div>
+{{ form_end(form)}}

@@ -24,15 +24,22 @@
         } only %} #}
 
         {# {% include 'components/filtre_signalement.html.twig' with {filtre: form} only%} #}
+        
 
         <div class="row list" data-controller="index">
             {% for signalement in signalements %}
             <a class=" col-12 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
                 <div class="card text-white bg-info mb-3 mx-2" style="max-width: 20rem;">
                     {# <div class="card-header">signalement n°{{signalement.id}}</div> #}
-                    <div class="card-header d-flex justify-content-between">
-                        <div>{{signalement.numero}} - {{signalement.type}}</div>
-                        <div>{{signalement.date|date('d/m/Y')}}</div>
+                    <div class="card-header grid">
+                        <div class="col4">{{signalement.numero}} - {{signalement.type}}</div>
+                        <div class="col4 d-flex flex-row justify-content-center align-items-center">
+                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>ARS <span class="indic">{{signalement.ARS}}</span></p>
+                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>ES <span class="indic">{{signalement.ES}}</span></p>
+                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>CPIAS <span class="indic">{{signalement.CPIAS}}</span></p>
+                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>SPF <span class="indic">{{signalement.SPF}}</span></p>
+                        </div>
+                        <div class="col4 jse">{{signalement.date|date('d/m/Y')}}</div>
                     </div>
                     <div class="card-body">
                         {# <h4 class="card-title">                           

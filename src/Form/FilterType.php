@@ -13,33 +13,52 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class FilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('recherche',TextType::class, [
+        ->add('q',TextType::class, [
             'label' => false,
             'required' => false,
             'attr' => [
-                'placeholder' => 'rechercher'
+                'placeholder' => 'Rechercher'
             ]
         ])
-        ->add('departement', ChoiceType::class, [                
+        ->add('type', ChoiceType::class, [
+            'label_attr' =>[
+                'class' => 'radio-inline',
+            ],            
             'choices' => [
-                '18 - Cher' => 18,
-                '28 - Eure et Loir' => 28,
-                '36 - Indre' => 36,
-                '37 - Indre et Loire' => 37,
-                '41 - Loire et Cher' => 41,                
-                '45 - Loiret' => 45,
+                    'Portail' => 'Portail',
+                    'ESIN' => 'ESIN',
+                    'Aucun' => 'Aucun',
+            ],
+            'placeholder' => false,
+            'label' => false,
+            'expanded' => true,
+            'required' => false,
+            'multiple' => false      
+        ])  
+        ->add('departement', ChoiceType::class, [
+            'attr' => [
+                'class' => 'divided'
+            ],            
+            'choices' => [
+                '18 - Cher' => '18-CHER',
+                '28 - Eure et Loir' => '28-EURE ET LOIR',
+                '36 - Indre' => '36-INDRE',
+                '37 - Indre et Loire' => '37-INDRE ET LOIRE',
+                '41 - Loire et Cher' => '41-LOIR ET CHER',                
+                '45 - Loiret' => '45-LOIRET',
             ],
             // 'choice_attr' => [
             //     'class' => 'text-white'
@@ -50,7 +69,13 @@ class FilterType extends AbstractType
         ])        
         ->add('infect', EntityType::class,[
             'class' => Infection::class,           
-            'label' => false,
+            'label' => false,            
+            'required' => false
+        ])
+        ->add('serv', EntityType::class,[
+            'class' => Service::class,           
+            'label' => false,            
+            'required' => false
         ])
         ->add('epidemie', ChoiceType::class, [
             'label_attr' =>[
@@ -58,8 +83,9 @@ class FilterType extends AbstractType
             ],            
             'choices' => [
                     'Épidémie' => 'Épidémie',
-                    'Cas isolé' => 'Cas isolé'                    
-            ],  
+                    'Cas isolé' => 'Cas isolé'
+            ],
+            'placeholder' => false,
             'label' => false,
             'expanded' => true,
             'required' => false,
@@ -97,6 +123,104 @@ class FilterType extends AbstractType
                 new Assert\LessThan("today")
             ]
         ])
+        ->add('scoreMin', NumberType::class, [                
+            'label' => false,
+            'required' =>false,
+            'attr' => ['placeholder' => 'Score Min']
+        ])
+        ->add('scoreMax', NumberType::class, [                
+            'label' => false,            
+            'required' =>false,
+            'attr' => ['placeholder' => 'Score Max']
+        ])
+        ->add('ARS', ChoiceType::class, [
+            'attr' => [
+                'class' => 'selected'
+            ],
+            'choices' => [
+                'Aucun' => 'aucune',
+                'Vert' => 'vert',
+                'Bleu' => 'bleu',
+                'Rouge' => 'rouge',
+            ],
+            'label' => 'ARS',
+            'required' => false,      
+        ])
+        ->add('ES', ChoiceType::class, [
+            'attr' => [
+                'class' => 'selected'
+            ],
+            'choices' => [
+                'Aucun' => 'aucune',
+                'Vert' => 'vert',
+                'Bleu' => 'bleu',
+                'Rouge' => 'rouge',
+            ],
+            'label' => 'ES',
+            'required' => false,     
+        ])
+        ->add('CPIAS', ChoiceType::class, [
+            'attr' => [
+                'class' => 'selected'
+            ],
+            'choices' => [
+                'Aucun' => 'aucune',
+                'Vert' => 'vert',
+                'Bleu' => 'bleu',
+                'Rouge' => 'rouge',
+            ],
+            'label' => 'CPIAS',
+            'required' => false,        
+        ])
+        ->add('SPF', ChoiceType::class, [
+            'attr' => [
+                'class' => 'selected'
+            ],
+            'choices' => [
+                'Aucun' => 'aucune',
+                'Vert' => 'vert',
+                'Bleu' => 'bleu',
+                'Rouge' => 'rouge',
+            ],
+            'label' => 'SPF',
+            'required' => false,    
+        ])
+        ->add('souche', ChoiceType::class, [
+            'attr' => [
+                'class' => 'fdr'
+            ],
+            'label_attr' =>[
+                'class' => 'radio-inline',
+            ],            
+            'choices' => [
+                    'CRENO' => 'CRENO',
+                    'CNRS' => 'CNRS'
+            ],
+            'placeholder' => false,
+            'label' => false,
+            'expanded' => true,
+            'required' => false,
+            'multiple' => true     
+        ])  
+        ->add('contact', ChoiceType::class, [
+            'attr' => [
+                'class' => 'divided'
+            ],
+            'label_attr' =>[
+                'class' => 'radio-inline',
+            ],            
+            'choices' => [
+                'Téléphone' => 'tel',
+                'Mail' => 'mail',
+                'Visioconférence' => 'visio',
+                'Présentiel' => 'presenciel',
+            ],         
+            'placeholder' => false,
+            'label' => false,
+            'expanded' => true,
+            'required' => false,
+            'multiple' => true
+        ])  
         ;
     }
 

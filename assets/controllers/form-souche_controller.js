@@ -1,5 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 
+/**
+ * 
+ * Création du bouton "Ajout d'une souche" dans le formulaire d'ajout d'un signalement
+ */
+
 export default class extends Controller {
     connect() {
         this.index = this.element.childElementCount

@@ -10,7 +10,7 @@
 
         <div class="grid" data-controller="signalement">
         
-            <div class="col4">
+            <div class="col3 h50">
                 {{ form_row(form.type, {
                     attr: {
                         'data-signalement-target': 'type',
@@ -19,19 +19,20 @@
                 }) }}
             </div>
 
-            <div class="col4">
+            <div class="col3 h50">
                 {{ form_row(form.numero, {
                     attr: {
                         'data-signalement-target': 'numero',
                     }
                 }) }}
+             
             </div>
 
-            <div class="col4">
+            <div class="col3 h50">
                 {{ form_row(form.date) }}
             </div>
 
-            <div class="col4">
+            <div class="col3 h50">
                 {{ form_row(form.structure) }}
             </div>
 
@@ -149,11 +150,15 @@
                 }) }}
             </div>   
 
-            <div class="col4">
+            <div class="hidden col4">
                 {{ form_row(form.score, {
                     attr: {'data-signalement-target': 'score'}
                 }) }}
             </div> 
+
+            <div class="d-flex col12 mt-4">
+                <p class="scoreTot">Score Total : <span id="scoreTotal">0</span><p>
+            </div>
 
             <div class="col12 score grid">
                 <div class="col3 p-3 border border-2 rounded border-black eta ars">

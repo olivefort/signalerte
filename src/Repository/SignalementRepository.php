@@ -24,73 +24,116 @@ class SignalementRepository extends ServiceEntityRepository
         parent::__construct($registry, Signalement::class);
     }
 
+    /**
+     * Récupération des signalements via la recherche par le filtre
+     *
+     * @return Signalement[]
+     */
     public function findSearch(FilterData $filter): array
     {
-        $query = $this
-            ->createQueryBuilder('s');
-            
-            
+        $query = $this->createQueryBuilder('s')
+            ->select('i', 's')
+            ->select('st', 's')
+            ->join('s.infection', 'i')
+            ->join('s.structure', 'st');
 
-        if(!empty($filter->recherche)){
-            $query
-                ->where($query->expr()->like('s.type', ':recherche'))
-                ->setParameter('recherche',"%{$filter->recherche}%");
+        if(!empty($filter->q)){
+            $query = $query               
+                ->andWhere('s.numero LIKE :q OR s.type LIKE :q OR st.nom LIKE :q OR st.finessG LIKE :q')
+                ->setParameter('q',"%{$filter->q}%");
+        }
+
+        if(!empty($filter->type)){
+            $query = $query
+                ->andWhere('s.type IN (:type)')
+                ->setParameter('type',$filter->type);
         }
 
         if(!empty($filter->departement)){
-            $c
-                ->select('st', 's')
-                ->join('s.structure', 'st')
-                ->where($query->expr()->in('st.departement', $filter->departement));
+            $query = $query
+                ->andWhere('st.departement IN (:departement)')
+                ->setParameter('departement',$filter->departement);
+        }  
+
+        if(!empty($filter->epidemie)){
+            $query = $query
+                ->andWhere('s.epidemie IN (:epidemie)')
+                ->setParameter('epidemie',$filter->epidemie);
         }
 
         if(!empty($filter->infect)){
-            $query
-                ->select('i', 's')
-                ->join('s.infection', 'i')
-                ->where($query->expr()->in('i.infection', $filter->infect));                
+            $query = $query
+                ->andWhere('i.id IN (:infect)')
+                ->setParameter('infect',$filter->infect);
+        }
+
+        if(!empty($filter->serv)){
+            $query = $query
+                ->select('sv', 's')
+                ->join('s.service', 'sv')
+                ->andWhere('sv.id IN (:serv)')
+                ->setParameter('serv',$filter->serv);
         }
 
         if(!empty($filter->dateMin)){
-            $query
-                ->andWhere($query->expr()->gte('s.date', ':dateMin'))
+            $query = $query               
+                ->andWhere('s.date >= :dateMin')
                 ->setParameter('dateMin', $filter->dateMin, Types::DATE_IMMUTABLE);
         }
 
         if(!empty($filter->dateMax)){
-            $query
-                ->andWhere($query->expr()->lte('s.date', ':dateMax'))
+            $query = $query             
+                ->andWhere('s.date <= :dateMax')
                 ->setParameter('dateMax', $filter->dateMax, Types::DATE_IMMUTABLE);
         }
-            // ->select('d', 's')
-            // ->join('s.agent', 'a');
-            // ->join('s.structure', 'd');
+        if(!empty($filter->scoreMin)){
+            $query = $query
+                ->andWhere('s.score >= :scoreMin')
+                ->setParameter('scoreMin',$filter->scoreMin);
+        }  
+        if(!empty($filter->scoreMax)){
+            $query = $query
+                ->andWhere('s.score <= :scoreMax')
+                ->setParameter('scoreMax',$filter->scoreMax);
+        }
+        if(!empty($filter->ARS)){
+            $query = $query
+                ->andWhere('s.ARS IN (:ARS)')
+                ->setParameter('ARS',$filter->ARS);
+        }
+        if(!empty($filter->ES)){
+            $query = $query
+                ->andWhere('s.ES IN (:ES)')
+                ->setParameter('ES',$filter->ES);
+        }
+        if(!empty($filter->CPIAS)){
+            $query = $query
+                ->andWhere('s.CPIAS IN (:CPIAS)')
+                ->setParameter('CPIAS',$filter->CPIAS);
+        }
+        if(!empty($filter->SPF)){
+            $query = $query
+                ->andWhere('s.SPF IN (:SPF)')
+                ->setParameter('SPF',$filter->SPF);
+        }
+        if(!empty($filter->souche)){
+            $query = $query              
+                ->select('so','s')
+                ->join('s.souche', 'so')
+                ->andWhere('so.laboratoire IN (:souche)')
+                ->setParameter('souche',$filter->souche);
+        }
+        if(!empty($filter->contact)){
+            $query = $query
+                ->select('c','s')
+                ->join('s.contact', 'c')
+                ->andWhere('c.type IN (:contact)')
+                ->setParameter('contact',$filter->contact);
+        }
 
-            // if(!empty($search->recherche)){
-            //     $query = $query
-            //         ->andWhere('s.structure.nom LIKE :recherche')
-            //         ->setParameter('recherche', "%{$filter->s}%");
-            // }
 
-            // if (!empty($search->infection)) {
-            //     $query = $query
-            //         ->andWhere('s.epidemie = 1');
-            // }
 
-            // if (!empty($search->departement)) {
-            //     $query = $query
-            //         ->andWhere('d.departement IN (:structure)')
-            //         ->setParameter('departement', $search->departement);
-            // }
-            // dd($query);
-            // dd($query);
-            // if(!empty($search->recherche)){
-            //     $query = $query
-            //         ->andWhere('s.type LIKE :recherche')
-            //         ->setParameter('recherche', "%{$filter->s}%");
-            // }
-        return $query
-            ->getQuery()
-            ->getResult();    
+
+        return $query->getQuery()->getResult();    
     }
 }

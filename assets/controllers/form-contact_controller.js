@@ -1,7 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
+/**
+ * 
+ * Création du bouton "Ajout d'un contact" dans le formulaire d'ajout d'un signalement
+ */
 
 export default class extends Controller {
-
     
     connect() {
         this.index = this.element.childElementCount

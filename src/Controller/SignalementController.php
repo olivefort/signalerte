@@ -22,16 +22,17 @@ final class SignalementController extends AbstractController
     #[Route('/signalement', name: 'signalement.index', methods:['GET'])]
     public function index(
         SignalementRepository $repository,
-        PaginatorInterface $paginator,
+        // PaginatorInterface $paginator,
         Request $request
     ): Response {
         $data = new FilterData();
         $form = $this-> createForm(FilterType::class, $data);
-        $form->handleRequest($request);  
+        $form->handleRequest($request);
+        // dd($data);
         $signalements = $repository->findSearch($data);
         return $this->render('pages/signalement/index.html.twig', [
             'signalements'=> $signalements,
-            'form' => $form->createView()
+            'form' => $form
         ]);
     // }
 
@@ -66,9 +67,12 @@ final class SignalementController extends AbstractController
             );
             return $this->redirectToRoute('signalement.index');
         }
-        return $this->render('pages/signalement/new.html.twig',[
-            'form'=> $form->createView()
-        ]);
+        return $this->render('pages/signalement/new.html.twig'
+            ,['form'=> $form
+            // /!\ NE PLUS METTRE : ->createView() /!\
+            // ->createView()
+            ]
+        );
     }
 
     //UPDATE
@@ -94,7 +98,7 @@ final class SignalementController extends AbstractController
             return $this->redirectToRoute('signalement.index');
         }
         return $this->render('pages/signalement/edit.html.twig',[
-            'form' => $form->createView()
+            'form' => $form
         ]);
     }
 

@@ -32,8 +32,18 @@
             .col12 {
                 grid-column : span 12;
             }
+            .jse{
+                justify-self : end;
+            }
             .m2{
                 margin : 2rem;
+            }
+            .h50 .form-control{
+                min-height : 50px;
+            }
+            .fdr{
+                display : flex;
+                flex-direction : row;
             }
             .side {
                 display : block;
@@ -45,6 +55,7 @@
             .list {
                 grid-column : 4/13;
                 padding : 1rem;
+                flex-direction : column;
             }
             .groupe {
                 border : 2px black solid;
@@ -52,6 +63,38 @@
                 margin : .5rem 0;
                 padding : .5rem
             }
+            .scoreTot {
+                border : 1px #eceeef solid; 
+                border-radius : 10px;
+                background : white;
+                padding : .5rem;
+            }
+            .hidden {
+                visibility : hidden;
+                display : none
+            }
+            .indic {
+                display : inline-block;
+                border : 1px white solid;
+                min-width : 20px !important;
+                min-height : 20px !important;
+                margin : .2rem
+            }
+            .partleft,
+            #souche .form-check {
+                margin-right : 2rem
+            }
+            /* .selected {
+                color : #ffffff;
+                background-color : #F07365;
+            }
+            .selected option{
+                color : #ffffff;
+            } */
+            .filtre8 .form-control{
+                color : #ffffff !important;
+            }
+            
         </style>
 
         {% block javascripts %}

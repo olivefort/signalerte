@@ -38,12 +38,16 @@ class SoucheType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
                 'label' => "Date de l'envoi",
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
-                'empty_data' =>''
+                'empty_data' =>'',
+                'constraints' => [
+                    new Assert\LessThan("today")
+                ]
             ])
             ->add('numero', IntegerType::class, [
                 'attr' => [

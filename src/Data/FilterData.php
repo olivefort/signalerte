@@ -10,22 +10,32 @@ class FilterData
 /**
  * @var string
  */
-public $recherche = '';
+public $q = '';
 
 /**
- * @var null|integer[]
+ * @var Signalement.type[]
+ */
+public $type;
+
+/**
+ * @var Structure.departement[]
  */
 public $departement;
 
 /**
- * @var null|integer[]
+ * @var Signalement.epidemie[]
  */
 public $epidemie;
 
 /**
- * @var null|string[]
+ * @var Signalement.infection[]
  */
 public $infect;
+
+/**
+ * @var Signalement.service[]
+ */
+public $serv;
 
 /**
  * @var null|DateTimeImmutable
@@ -37,6 +47,48 @@ public $dateMax;
  */
 public $dateMin;
 
+/**
+ * @var Signalement.score[]
+ */
+public $scoreMin;
+
+/**
+ * @var Signalement.score[]
+ */
+public $scoreMax;
+
+/**
+ * @var Signalement.ars[]
+ */
+public $ARS;
+
+/**
+ * @var Signalement.es[]
+ */
+public $ES;
+
+/**
+ * @var Signalement.cpias[]
+ */
+public $CPIAS;
+
+/**
+ * @var Signalement.spf[]
+ */
+public $SPF;
+
+/**
+ * @var Signalement.souche[]
+ */
+public $souche;
+
+/**
+ * @var Signalement.contact[]
+ */
+public $contact;
+
 }
+
+
 
 

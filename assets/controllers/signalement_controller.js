@@ -1,20 +1,15 @@
 import { Controller } from '@hotwired/stimulus';
 
-
-
 export default class extends Controller {
-    static targets = ['agent','cas','type','etiologie', 'epidemie', 'gravite', 'population','reco','mesure','capacite','impact','score','ARS','ES','CPIAS','SPF'];
+    static targets = ['agent','cas','type','etiologie', 'epidemie', 'gravite', 'population','reco','mesure','capacite','impact','score','ARS','ES','CPIAS','SPF'];  
 
     updateCas(){
-        const nombre = this.casTarget.value;
-        if(nombre <= 0 ){
-            this.nombre = 1
-        }  
-        else if(nombre == 1){
+        const nombre = this.casTarget.value;  
+        if(nombre == 1){
             this.epidemieTarget.value = "Cas isolé"
         }else{
             this.epidemieTarget.value = "Épidémie"
-        }        
+        } 
     }
 
     updateLengthNum(){
@@ -23,11 +18,13 @@ export default class extends Controller {
         if(type === 'ESIN'){
             num.setAttribute('style', "display:block" )
             num.value = ""            
-            num.setAttribute("maxlength", 5)            
+            num.setAttribute("maxlength", 5)
+            num.setAttribute("placeholder", "12345")
         }else if(type === 'Portail'){
             num.setAttribute('style', "display:block" )
             num.value = ""            
             num.setAttribute("maxlength", 6)
+            num.setAttribute("placeholder", "123456")
         }else{
             num.setAttribute('style', "display:none" )
         }
@@ -36,6 +33,8 @@ export default class extends Controller {
     updateScore() {
         let score = 0; 
         const etio = this.etiologieTarget.value;
+        const scortot = document.querySelector('#scoreTotal')
+        scortot.innerHTML = 0
         if(etio === 'VIH / Hépatite'){
             score = score + 100            
         }else if(etio == 'C. Difficile' || etio == 'BHRe'){
@@ -69,7 +68,8 @@ export default class extends Controller {
       
         this.scoreTarget.value = score
 
-        
+       
+        scortot.innerHTML = score
     }
 
     changeNameClass(){
@@ -192,12 +192,15 @@ export default class extends Controller {
     // }
 
     connect(){
+      
         this.agentNew()    
         this.soucheNew()
         this.contactNew()
         this.colorNote()
         // this.resumeIndex()
         this.changeNameClass()
+
+        
      
         const scoreEtablissement = document.querySelector('.score')
         scoreEtablissement.style.display = "grid"

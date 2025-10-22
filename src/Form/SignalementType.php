@@ -38,6 +38,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class SignalementType extends AbstractType
 {
@@ -58,11 +59,12 @@ class SignalementType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
             ])
-            ->add('numero', TelType::class, [
+            ->add('numero', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'maxlength' => '6',
-                    'minlength' => '5'
+                    'maxlength' => '5',
+                    'minlength' => '5',
+                    'placeholder' => '12345'
                 ],
                 'label' => 'Numéro du signalement',
                 'label_attr' => [
@@ -152,7 +154,9 @@ class SignalementType extends AbstractType
             ])         
             ->add('cas', IntegerType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'min' => '1',
+                    'value' => '1'
                 ],
                 'label' => 'Nombre de cas',
                 'label_attr' => [
@@ -162,6 +166,19 @@ class SignalementType extends AbstractType
                     new Assert\Positive(),
                     new Assert\NotNull()
                 ]
+            ])
+            ->add('epidemie', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-select'
+                ],
+                'choices' => [
+                    'Cas isolé' => 'Cas isolé',
+                    'Épidémie' => 'Épidémie'
+                ],
+                'label' => 'Type de cas',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
             ])
             ->add('service', EntityType::class,[
                 'class' => Service::class,
@@ -211,19 +228,6 @@ class SignalementType extends AbstractType
                 'label' => false,
                 'entry_options' => ['label' => false ],
                 'attr' => ['data-controller' => 'form-contact', 'class' => 'contact'],
-            ])
-            ->add('epidemie', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-select'
-                ],
-                'choices' => [
-                    'Épidémie' => 'Épidémie',
-                    'Cas isolé' => 'Cas isolé'                    
-                ],
-                'label' => 'Type de cas',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
             ])
             ->add('gravite', ChoiceType::class, [
                 'attr' => [
@@ -313,6 +317,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
+                // 'required' => false,
                 'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -323,7 +328,9 @@ class SignalementType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
+                'required' => false,
                 'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -339,6 +346,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
+                // 'required' => false,
                 'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -349,7 +357,9 @@ class SignalementType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
+                'required' => false,
                 'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -365,6 +375,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
+                // 'required' => false,
                 'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -375,7 +386,9 @@ class SignalementType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
+                'required' => false,
                 'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -391,6 +404,7 @@ class SignalementType extends AbstractType
                     'bleu' => 'bleu',
                     'rouge' => 'rouge'                   
                 ],
+                // 'required' => false,
                 'label' => 'Note',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -401,13 +415,15 @@ class SignalementType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
+                'required' => false,
                 'label' => 'Cloture',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
             ])
-            ->add('score', IntegerType::class, [
+            ->add('score', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -416,11 +432,13 @@ class SignalementType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                // 'constraints' => [
-                //     new Assert\Positive(),
-                //     new Assert\NotNull()
-                // ]
+                'constraints' => [
+                    new Assert\Positive(),
+                    new Assert\NotNull()
+                ]
             ])
+
+
             // ->add('score',ButtonType::class, [
             //     'attr' => [
             //         'class' => 'form-control button-score',

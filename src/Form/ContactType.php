@@ -37,6 +37,7 @@ class ContactType extends AbstractType
                 'input' => 'datetime_immutable',
                 'attr' => [
                     'class' => 'form-control',
+                    'max' => date('Y-m-d')
                 ],
                 'label' => "Date de contact",
                 'label_attr' => [
