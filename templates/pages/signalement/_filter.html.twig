@@ -1,6 +1,8 @@
 {{ form_start(form, {attr: {class: 'formside'}})}}
-{# {{ form_row(form.q) }} #}
-<div>{{ form_row(form.q) }}</div>
+
+<div class="formulaire">{{ form_row(form.q) }}
+
+</div>
 <div>
     <h5>Type de signalement</h5>
     <div class="row">{{ form_row(form.type) }}</div>
@@ -38,8 +40,8 @@
 <div>
     <h5>Cotation</h5>
     <div class="row">
-        <div class="col-md-3">{{ form_row(form.ARS) }}</div>
         <div class="col-md-3">{{ form_row(form.ES) }}</div>
+        <div class="col-md-3">{{ form_row(form.ARS) }}</div>
         <div class="col-md-3">{{ form_row(form.CPIAS) }}</div>
         <div class="col-md-3">{{ form_row(form.SPF) }}</div>
     </div>
@@ -56,10 +58,8 @@
         {{ form_row(form.contact) }}
     </div>
 </div>
-<div>
-    <button class="btn btn-secondary w-100 mt-5" type="submit">Valider</button>
-</div>
-<div>
-    <button class="btn btn-secondary w-100 mt-5 reset">Reset</button>
+<div class="row">
+    <button class="btn btn-primary w-40 mt-5" type="submit">Valider</button>
+    <button class="btn btn-secondary w-40 mt-5 reset">Reset</button>
 </div>
 {{ form_end(form)}}

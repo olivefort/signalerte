@@ -3,39 +3,54 @@
 {% block title %}Signalements{% endblock %}
 
 {% block body %}
-    <div class="grid">
+    <div class="gridsignalement">
 
 
     {% for message in app.flashes('success') %}
-        <div class="alert alert-dismissible alert-success mt-4">            
-        <strong>{{ message }}</strong>
+        <div class="alert alert-dismissible alert-success mt-4 col12">            
+            <strong>{{ message }}</strong>
         </div>
     {% endfor %}
     
-        <h1 class="col12 m2">Liste des Signalements</h1>
-
-        <div class="side">
-            <a href="{{ path('signalement.new')}}" class="btn btn-secondary mx-2 mb-3 w-100">Créer une alerte</a>
+        <div class="col12 d-flex flex-row justify-content-between align-items-center w-100 px-4">
+            <h1 class="col12 m-0">Liste des Signalements</h1>
+            {# <p>{% include 'src/Data/testuser.csv'%}</p> #}
+            <a href="{{ path('signalement.new')}}" class="btn btn-danger h-75">Créer un signalement</a>
+        </div>
+        <div class="side">   
+        {# <button aria-expanded="false" class="togle">filtre</button>          #}
             {% include 'pages/signalement/_filter.html.twig' with {form: form} only %}
         </div>
-
-        {# {% include 'components/_search_data.html.twig' with {
-            form: form
-        } only %} #}
-
-        {# {% include 'components/filtre_signalement.html.twig' with {filtre: form} only%} #}
+        <div class="map">  
+            {% set markers = [] %}
+            {% for signalement in signalements %}
+                {% set markers = markers|merge([{
+                    'position' : [signalement.structure.latitude, signalement.structure.longitude],
+                    'title' : signalement.structure.nom
+                }]) %}
+            {% endfor %}
+            {{ ux_map(
+                center : [47.65, 1.50],
+                zoom : 7,
+                markers : markers,
+                attributes : {
+                    class : 'mapimap',
+                    
+                    style : 'height: 35rem; width: 100%',
+                }
+            )}}
+        </div>
         
-
         <div class="row list" data-controller="index">
             {% for signalement in signalements %}
             <a class=" col-12 text-decoration-none" href="{{ path('signalement.show',{id:signalement.id})}}">             
                 <div class="card text-white bg-info mb-3 mx-2" style="max-width: 20rem;">
                     {# <div class="card-header">signalement n°{{signalement.id}}</div> #}
-                    <div class="card-header grid">
+                    <div class="card-header gridsignalement">
                         <div class="col4">{{signalement.numero}} - {{signalement.type}}</div>
                         <div class="col4 d-flex flex-row justify-content-center align-items-center">
-                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>ARS <span class="indic">{{signalement.ARS}}</span></p>
                             <p class="d-flex justify-content-center align-items-center mb-0" m-1>ES <span class="indic">{{signalement.ES}}</span></p>
+                            <p class="d-flex justify-content-center align-items-center mb-0" m-1>ARS <span class="indic">{{signalement.ARS}}</span></p>
                             <p class="d-flex justify-content-center align-items-center mb-0" m-1>CPIAS <span class="indic">{{signalement.CPIAS}}</span></p>
                             <p class="d-flex justify-content-center align-items-center mb-0" m-1>SPF <span class="indic">{{signalement.SPF}}</span></p>
                         </div>
@@ -49,7 +64,14 @@
                             <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Établissement</span><span class="text-center">{{signalement.structure.nom}}</p>
                             <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Finess</span><span class="text-center">{{signalement.structure.finessG}}</span></p>
                             <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Infection</span><span class="text-center">{{signalement.infection}}</span></p>
-                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Cas</span><span class="text-center">{{signalement.cas}}</span></p>
+                            <p class="card-text d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Cas</span>
+                            
+                            {% if signalement.casC > signalement.casO %} 
+                                <span class="text-center nbC">{{signalement.casO}}</span>
+                                <span class="text-center nbB">{{ signalement.casC }}</span>
+                            {% else %}
+                                <span class="text-center nbA">{{signalement.casO}}</span>
+                            {% endif %}
                             <p class="card-text score-index d-flex flex-column p-1"><span class="badge rounded-pill bg-secondary">Score</span><span class="score text-center">{{signalement.score}}</span></p>
                         </div>
                         <div class="card-text d-flex flex-column p-1">
@@ -73,103 +95,7 @@
                 </div> 
             </a>
             {% endfor %}
-        </div>
-
-        {# <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th class="entetesign" scope="col">Type</th>
-                    <th class="entetesign" scope="col">Numero</th>
-                    <th class="entetesign" scope="col">Date</th>
-                    <th class="entetesign" scope="col">Finess Géographique</th>
-                    <th class="entetesign" scope="col">Finess Juridique</th>
-                    <th class="entetesign" scope="col">Structure</th>
-                    <th class="entetesign" scope="col">Code Postale</th>
-                    <th class="entetesign" scope="col">Organisme</th>
-                    <th class="entetesign" scope="col">Résistance</th>
-                    <th class="entetesign" scope="col">Type Infection</th>
-                    <th class="entetesign" scope="col">Agent Étiologique</th>
-                    <th class="entetesign" scope="col">Nombre de cas</th>
-                    <th class="entetesign" scope="col">Service</th>
-                    <th class="entetesign" scope="col">Commentaire</th>
-                    <th class="entetesign" scope="col">Souche</th>
-                    <th class="entetesign" scope="col">Contact</th>
-                    <th class="entetesign" scope="col">Type de cas</th>
-                    <th class="entetesign" scope="col">Gravité</th>
-                    <th class="entetesign" scope="col">Population</th>
-                    <th class="entetesign" scope="col">Recommandation</th>
-                    <th class="entetesign" scope="col">Mesure</th>
-                    <th class="entetesign" scope="col">Capacité</th>
-                    <th class="entetesign" scope="col">Impact</th>
-                    <th class="entetesign" scope="col">Score ARS</th>
-                    <th class="entetesign" scope="col">Score ES</th>
-                    <th class="entetesign" scope="col">Score CPIAS</th>
-                    <th class="entetesign" scope="col">Score SPF</th>
-                    
-                    <th class="entetesign" scope="col">Modification</th>
-                    <th class="entetesign" scope="col">Suppression</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for signalement in signalements %}
-                    <tr class="table-success">
-                        <th scope="row">{{signalement.type}}</th>
-                        <td>{{signalement.numero}}</td>
-                        <td>{{signalement.date|date('d/m/Y')}}</td>
-                        <td>{{signalement.structure.finessG}}</th>
-                        <td>{{signalement.structure.finessJ}}</th>
-                        <td>{{signalement.structure.nom}}</td>                        
-                        <td>{{signalement.structure.cp}}</td>
-                        <td>
-                        {% for organisme in signalement.organisme %}
-                            <li>{{organisme.type}}</li>
-                        {% endfor %}
-                        </td>
-                        <td>
-                        {% for resistance in signalement.resistance %}
-                            <li>{{resistance.type}}</li>
-                        {% endfor %}
-                        </td>
-                        <td>{{signalement.infection}}</td>
-                        <td>{{signalement.etiologie}}</td>
-                        <td>{{signalement.cas}}</td>
-                        <td>
-                        {% for service in signalement.service %}
-                            <li>{{service.nom}}</li>
-                        {% endfor %}
-                        </td>
-                        <td>{{signalement.commentaire}}</td>
-                        <td>{% for souche in signalement.souche %}
-                            <ul>
-                                <li>{{souche.laboratoire}}</li>
-                                <li>{{souche.date|date('d/m/Y')}}</li>
-                                <li>{{souche.numero}}</li>
-                            </ul>
-                        {% endfor %}</td>
-                        <td>{% for contact in signalement.contact %}
-                            <ul>
-                                <li>{{contact.type}}</li>
-                                <li>{{contact.date|date('d/m/Y')}}</li>
-                            </ul>
-                        {% endfor %}</td>
-                        <td>{{signalement.epidemie}} - {{signalement.cas}}</td>
-                        <td>{{signalement.gravite}}</td>
-                        <td>{{signalement.population}}</td>
-                        <td>{{signalement.reco}}</td>
-                        <td>{{signalement.mesure}}</td>
-                        <td>{{signalement.capacite}}</td>
-                        <td>{{signalement.impact}}</td>
-                        <td>{{signalement.ARS}}{{signalement.clotureARS|date('d/m/Y')}}</td>
-                        <td>{{signalement.ES}}{{signalement.clotureES|date('d/m/Y')}}</td>
-                        <td>{{signalement.CPIAS}}{{signalement.clotureCPIAS|date('d/m/Y')}}</td>
-                        <td>{{signalement.SPF}}{{signalement.clotureSPF|date('d/m/Y')}}</td>
-                        
-                        <td><a class="btn btn-info" type="button" href='{{ path('signalement.edit', {id: signalement.id})}}'>Modifier</a></td>
-                        <td><a class="btn btn-secondary" type="button" href='{{ path('signalement.delete', {id: signalement.id})}}'>Effacer</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table> #}
+        </div>       
         <div class="d-flex justify-content-center">
             {# {{ knp_pagination_render(signalements)}} #}
         </div>

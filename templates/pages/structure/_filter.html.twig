@@ -1,0 +1,10 @@
+{{ form_start(form, {attr: {class: 'form'}})}}
+{# {{ form_row(form.q) }} #}
+
+
+<div class="d-flex">
+    {{ form_row(form.q) }}
+    <button class="btn btn-primary w-40 ms-2" type="submit">Valider</button>
+    <button class="btn btn-secondary w-40 ms-2 reset">Reset</button>
+</div>
+{{ form_end(form)}}

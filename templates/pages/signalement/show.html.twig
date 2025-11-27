@@ -3,115 +3,134 @@
 {% block title %}Signalement{{signalement.numero}}{% endblock %}
 
 {% block body %}
- <div class="container">
-
+ <div class="gridpage">
     {% for message in app.flashes('success') %}
         <div class="alert alert-success mt-4">
             <strong>{{ message }}</strong>
         </div>
     {% endfor %}
 
-    <h1 class="mt-4">
-        {{signalement.type}} {{signalement.numero}}
-    </h1>
+    <div class="col12">
+        <h1 class="mt-4 d-flex flex-row justify-content-between">
+            <span>{{signalement.type}}-{{signalement.numero}}</span> <span>{{signalement.structure.nom}}</span> <span>{{signalement.date|date('d/m/Y')}}</span>
+        </h1>
+    </div>
 
-    <div id="signalement">
-        
+    <div class="griddetail">
+        <div class="col1 show">
+            <p class="mt-4 badge bg-primary">Finess de la structure</p>
+            <ul>
+                <li>Géographique {{signalement.structure.finessG}}</li>
+                <li>Juridique {{signalement.structure.finessJ}}</li>
+            </ul>
         </div>
-            <p class="mt-4">Date du signalement : {{signalement.date|date('d/m/Y')}}</p>
-            <p class="mt-4">Nom de la structure : {{signalement.structure.nom}}</p>
-            <div>
-                <p class="mt-4">Finess de la structure :</p>
-                <ul>
-                    <li>Géographique : {{signalement.structure.finessG}}</li>
-                    <li>Juridique : {{signalement.structure.finessJ}}</li>
-                </ul>
-            </div>
-            <p class="mt-4">Adresse de la structure : {{signalement.structure.numero}} {{signalement.structure.voie}} {{signalement.structure.adresse}} {{signalement.structure.cp}} {{signalement.structure.ville}} / {{signalement.structure.departement}}</p>
-            <p class="mt-4">Agent infectieux :</p>
-            {# <p>Organismes</p>
-            <div>
-                <ul>    
-                {% for organisme in signalement.organisme %}
-                    <li class="organisme">{{organisme.type}}</li>
-                {% endfor %}
-                </ul>
-            </div>
-            <p>Résistances</p>
-            <div>
-                <ul>    
-                {% for resistance in signalement.resistance %}
-                    <li class="resistance">{{resistance.type}}</li>
-                {% endfor %}
-                </ul>
-            </div> #}
-            <p class="mt-4">Type de l'infection : <span class="infection">{{signalement.infection}}</span></p>
-            <p class="mt-4">Services concerné :</p>
-            <div>
+    
+        <div class="col2 show">
+            <p class="mt-4  badge bg-primary">Adresse de la structure</p> 
+            <ul>
+            <li>{{signalement.structure.numero}}</li>
+            <li>{{signalement.structure.voie}} {{signalement.structure.adresse}}</li>
+            <li>{{signalement.structure.cp}}</li>
+            <li>{{signalement.structure.ville}}</li>
+            <li>{{signalement.structure.departement}}</li>
+            </ul>
+        </div>
+     
+        <div class="col2">
+            <p class="mt-4 badge bg-primary">Services concerné</p>
                 <ul>    
                 {% for service in signalement.service %}
                     <li>{{service.nom}}</li>
                 {% endfor %}
                 </ul>  
-            </div>  
-            <p class="mt-4">Commentaire : {{signalement.commentaire}}</p>
-            <p class="mt-4">Souche :</p>
-            {% for souche in signalement.souche %}
-            <div>
-                <ul>
-                    <li>Laboratoire : {{souche.laboratoire}}</li>
-                    <li>Date d'envois : {{souche.date|date('d/m/Y')}}</li>
-                    <li>N° de la souche : {{souche.numero}}</li>
-                </ul>
-            </div>
-            {% endfor %}    
-            <p class="mt-4">Contact : </p>
-            {% for contact in signalement.contact %}
-            <div>
-                <ul>
-                    <li>Type de contact : {{contact.type}}</li>
-                    <li>Date de contact : {{contact.date|date('d/m/Y')}}</li>
-                </ul>
-            </div>
-            {% endfor %}
-            <p class="mt-4">Agent Infectieux :</p>
-            {% for agent in signalement.agent %}
-            <div>
-                <ul>
-                    <li> : {{agent.organisme}}</li>
-                    {% for resistance in agent.resistance %}
-                        <ul>
-                            <li>{{ resistance.type}}</li>
-                        </ul>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endfor %}   
-            <p class="mt-4">Agent étiologique : 
-                <span class="etio">{{signalement.etiologie}}</span>        
-            </p>
-        
-            <p class="mt-4">Type et nombre de cas : <span class="epi">{{signalement.epidemie}}</span> - {{signalement.cas}}</p>
-            <p class="mt-4">Gravité : <span class="grav">{{signalement.gravite}}</span></p>
-            <p class="mt-4">Population à risque : <span class="popu">{{signalement.population}}</span></p>
-            <p class="mt-4">Mesures conforme aux recommandation : <span class="reco">{{signalement.reco}}</span></p>
-            <p class="mt-4">Mesures efficaces : <span class="mesur">{{signalement.mesure}}</span></p>
-            <p class="mt-4">Capacité de gestion locale : <span class="capa">{{signalement.capacite}}</span></p>
-            <p class="mt-4">Impact échelle régionale ou nationale : <span class="impac">{{signalement.impact}}</span></p>
-            <p class="mt-4">Cotation :</p>
-            <div>
-                <ul>
-                    <li class="note"> ARS : <span class="couleur">{{signalement.ARS}}</span> {{signalement.clotureARS|date('d/m/Y')}}</li>
-                    <li class="note"> ES : <span class="couleur">{{signalement.ES}}</span> {{signalement.clotureES|date('d/m/Y')}}</li>
-                    <li class="note"> CPIAS : <span class="couleur">{{signalement.CPIAS}}</span> {{signalement.clotureCPIAS|date('d/m/Y')}}</li>
-                    <li class="note"> SPF : <span class="couleur">{{signalement.SPF}}</span> {{signalement.clotureSPF|date('d/m/Y')}}</li>
-                </ul>
-            </div>
-            <p class="mt-4">Score : <span class="score"></span></p>
-            <td><a class="btn btn-info modif" type="button" href='{{ path('signalement.edit', {id: signalement.id})}}'>Modifier</a></td>
-            <td><a class="btn btn-secondary" type="button" href='{{ path('signalement.delete', {id: signalement.id})}}'>Effacer</a></td>
-            <td><a class="btn btn-secondary" type="button" href='{{ path('signalement.index', {id: signalement.id})}}'>Retour</a></td>
+        </div>  
+        <div>
+            <p class="mt-4 badge bg-primary">Épidémie</p>
+            </br>{{ (signalement.epidemie == 'Épidémie') ? 'Oui'  : 'Non' }} ({{ signalement.casO}})
         </div>
+        <div class="col2">                
+            <p class="mt-4 badge bg-primary">Souche</p>
+            {% for souche in signalement.souche %}
+                <div>
+                    <ul>
+                        <li>Souche n°{{souche.numero}}</li>
+                        <li>{{souche.laboratoire}}</li>
+                        <li>{{souche.date|date('d/m/Y')}}</li>
+                    </ul>
+                </div>
+            {% endfor %}  
+        </div>  
+        <div>
+            <p class="mt-4 badge bg-primary">Contact</p>
+            {% for contact in signalement.contact %}
+                <p>{{contact.type}} le {{contact.date|date('d/m/Y')}}</p>
+            {% endfor %}
+        </div>
+        
+        <div class="col2">
+            <p class="mt-4 badge bg-primary">Agent Infectieux</p>
+            {% for agent in signalement.agent %}
+            <ul>
+                <li> : {{agent.organisme}}</li>
+                {% for resistance in agent.resistance %}
+                    <ul>
+                        <li>{{ resistance.type}}</li>
+                    </ul>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+        <div>
+                <p class="mt-4 badge bg-primary">Agent étiologique</p>
+            <span class="etio">{{signalement.etiologie}}</span>           
+        </div>        
+
+        <div>
+            <p class="mt-4 badge bg-primary">Gravité</p>
+            </br>{{signalement.gravite}}
+        </div>           
+        <div class="col2">
+            <p class="mt-4 badge bg-primary">Population à risque</p>
+            <span class="popu">{{signalement.population}}</span>
+        </div>
+        <div>
+            <p class="mt-4 badge bg-primary">Mesures conforme</br> aux recommandation</p>
+            <span class="reco">{{signalement.reco}}</span>
+        </div>
+        <div>
+            <p class="mt-4 badge bg-primary">Mesures efficaces</p>
+            <span class="mesur">{{signalement.mesure}}</span>
+        </div>
+        <div>
+            <p class="mt-4 badge bg-primary">Capacité de gestion locale</p>
+            <span class="capa">{{signalement.capacite}}</span>
+        </div>
+        <div>
+            <p class="mt-4 badge bg-primary">Impact échelle régionale</br> ou nationale</p>
+            <span class="impac">{{signalement.impact}}</span>
+        </div>
+        <div class="col5">
+            <p class="mt-4 badge bg-primary">Cotation</p>            
+            <ul>
+                <li class="note"> ARS : <span class="couleur">{{signalement.ARS}}</span> {{signalement.clotureARS|date('d/m/Y')}}</li>
+                <li class="note"> ES : <span class="couleur">{{signalement.ES}}</span> {{signalement.clotureES|date('d/m/Y')}}</li>
+                <li class="note"> CPIAS : <span class="couleur">{{signalement.CPIAS}}</span> {{signalement.clotureCPIAS|date('d/m/Y')}}</li>
+                <li class="note"> SPF : <span class="couleur">{{signalement.SPF}}</span> {{signalement.clotureSPF|date('d/m/Y')}}</li>
+            </ul>
+        </div>
+        <div class="col6">
+            <p class="mt-4 badge bg-primary">Commentaire</p>
+            <p>{{signalement.commentaire}}</p>
+        </div>
+        <div><p class="mt-4 badge bg-primary">Score : <span class="score"></span></p></div>
+        <div class="col12 d-flex mb-2">
+            
+            <td><a class="btn btn-info modif" type="button" href='{{ path('signalement.edit', {id: signalement.id})}}'>Modifier</a></td>
+            <td><a class="btn btn-secondary ms-2" type="button" href='{{ path('signalement.delete', {id: signalement.id})}}'>Effacer</a></td>
+            <td><a class="btn btn-secondary ms-2" type="button" href='{{ path('signalement.index', {id: signalement.id})}}'>Retour</a></td>
+        </div>
+    </div>
+        
     
     {# {% if app.user %}
     

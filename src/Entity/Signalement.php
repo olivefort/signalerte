@@ -36,7 +36,11 @@ class Signalement
     #[ORM\Column(type : 'integer')]
     #[Assert\Positive()]
     #[Assert\NotNull()]
-    private int $cas;
+    private int $casO;
+
+    #[ORM\Column(type : 'integer')]
+    #[Assert\Positive()]    
+    private int $casC;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
@@ -198,14 +202,25 @@ class Signalement
         return $this;
     }
 
-    public function getCas(): ?int
+    public function getCasO(): ?int
     {
-        return $this->cas;
+        return $this->casO;
     }
 
-    public function setCas(int $cas): static
+    public function setCasO(int $casO): static
     {
-        $this->cas = $cas;
+        $this->casO = $casO;
+        return $this;
+    }
+
+    public function getCasC(): ?int
+    {
+        return $this->casC;
+    }
+
+    public function setCasC(int $casC): static
+    {
+        $this->casC = $casC;
         return $this;
     }
 

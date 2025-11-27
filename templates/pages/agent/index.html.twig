@@ -11,28 +11,26 @@
     {% endfor %}
         <h1>Les agents infectieux</h1>
 
-        <a href="{{ path('agent.new')}}" class="btn btn-primary">Créer un agent infectieux</a>
+        {# <a href="{{ path('agent.new')}}" class="btn btn-primary mb-2">Créer un agent infectieux</a> #}
 
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="entetesign" scope="col">Agent Infectieux</th>
-                    <th class="entetesign" scope="col">Modifier</th>
-                    <th class="entetesign" scope="col">Supprimer</th>
+                    <th class="entetesign" scope="col">Signalement</th>
                 </tr>
             </thead>
             <tbody>
                 {% for agent in agents %}
                     <tr class="table-success">                        
                         <td>{{agent.organisme}}
-                        <ul>    
-                        {% for resistance in agent.resistance %}
-                            <li class="resistance">{{resistance.type}}</li>
-                        {% endfor %}
-                        </ul>
-                    </td>                        
-                        <td><a class="btn btn-info" type="button" href='{{ path('agent.edit', {id: agent.id})}}'>Modifier</a></td>
-                        <td><a class="btn btn-secondary" type="button" href='{{ path('agent.delete', {id: agent.id})}}'>Effacer</a></td>
+                            <ul>    
+                            {% for resistance in agent.resistance %}
+                                <li class="resistance">{{resistance.type}}</li>
+                            {% endfor %}
+                            </ul>
+                        </td>
+                        <td><a class="btn btn-secondary" type="button" href='{{ path('signalement.show', {id: agent.id})}}'>Voir</a></td>
                     </tr>
                 {% endfor %}                
             </tbody>

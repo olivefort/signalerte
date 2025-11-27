@@ -1,16 +1,33 @@
 import { Controller } from '@hotwired/stimulus';
 
-export default class extends Controller {
-    static targets = ['agent','cas','type','etiologie', 'epidemie', 'gravite', 'population','reco','mesure','capacite','impact','score','ARS','ES','CPIAS','SPF'];  
 
-    updateCas(){
-        const nombre = this.casTarget.value;  
+
+export default class extends Controller {
+    static targets = ['agent','casO','casC','type','etiologie', 'epidemie', 'gravite', 'population','reco','mesure','capacite','impact','score','ARS','ES','CPIAS','SPF'];  
+
+    
+    
+    updateCasO(){
+        const nombreA = this.casOTarget.value;
+        // const nombreB = this.casCTarget.value;
+        this.casCTarget.value = nombreA
+        if(nombreA == 1){
+            this.epidemieTarget.value = "Cas isolé"
+        }else{
+            this.epidemieTarget.value = "Épidémie"
+        } 
+    }
+
+    updateCasC(){
+        const nombre = this.casCTarget.value;  
         if(nombre == 1){
             this.epidemieTarget.value = "Cas isolé"
         }else{
             this.epidemieTarget.value = "Épidémie"
         } 
     }
+
+
 
     updateLengthNum(){
         const type = this.typeTarget.value;       
@@ -28,13 +45,13 @@ export default class extends Controller {
         }else{
             num.setAttribute('style', "display:none" )
         }
-    }
+    }    
 
     updateScore() {
-        let score = 0; 
+        let score = 0;
         const etio = this.etiologieTarget.value;
-        const scortot = document.querySelector('#scoreTotal')
-        scortot.innerHTML = 0
+        const scortot = document.querySelector('#scoreTotal')       
+        
         if(etio === 'VIH / Hépatite'){
             score = score + 100            
         }else if(etio == 'C. Difficile' || etio == 'BHRe'){
@@ -43,14 +60,20 @@ export default class extends Controller {
             score = score + 1           
         }else{
             score = score + 10            
+        }        
+        
+        const casO = this.casOTarget.value;
+        const casC = this.casCTarget.value;       
+        
+        if (casO !== casC){
+            casC > 1 ? score = score + 2 : score = score + 1;
+        } else {
+            casO > 1 ? score = score + 2 : score = score + 1;
         }
-
-        const cas = this.casTarget.value;
-        cas > 1 ? score = score + 2 : score = score + 1;        
-
+        
         const gravite = this.graviteTarget.value;
         gravite === "Gravité avérée" ? score = score + 2 : score = score + 1;
-
+        
         const population = this.populationTarget.value;
         population === "Population non à risque ou non applicable" ? score = score + 1 : score = score + 2;
 
@@ -64,11 +87,9 @@ export default class extends Controller {
         capacite ===  "OK" ? score = score + 1 : score = score + 2;
         
         const impact = this.impactTarget.value;
-        impact ===  "Non" ? score = score + 1 : score = score + 100;
-      
-        this.scoreTarget.value = score
+        impact ===  "Non" ? score = score + 1 : score = score + 100;      
 
-       
+        this.scoreTarget.value = score
         scortot.innerHTML = score
     }
 
@@ -197,9 +218,10 @@ export default class extends Controller {
         this.soucheNew()
         this.contactNew()
         this.colorNote()
-        // this.resumeIndex()
+        this.updateScore()
         this.changeNameClass()
-
+        
+        
         
      
         const scoreEtablissement = document.querySelector('.score')

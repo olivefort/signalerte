@@ -20,5 +20,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\EntityListener\:
+        resource: "../src/EntityListener/"
+        tags: ["doctrine.orm.entity_listener"]
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # console_command.csv_import:
+    #     class: '../src/Command/ImportCSVCommand'
+    #     arguments:
+    #         - '@doctrine.orm.entity_manager'
+    #     tags:
+    #         - {name: console.command}
+

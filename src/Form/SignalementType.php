@@ -152,13 +152,13 @@ class SignalementType extends AbstractType
                 'choice_label' => 'agent',
                 // 'multiple' => true,
             ])         
-            ->add('cas', IntegerType::class, [
+            ->add('casO', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'min' => '1',
                     'value' => '1'
                 ],
-                'label' => 'Nombre de cas',
+                'label' => 'Nombre de cas d\'origine',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -179,6 +179,21 @@ class SignalementType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+            ])
+            ->add('casC', IntegerType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => '1',
+                    'value' => '1'
+                ],
+                'label' => 'Nombre de cas à la cloture',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\Positive(),
+                    new Assert\NotNull()
+                ]
             ])
             ->add('service', EntityType::class,[
                 'class' => Service::class,

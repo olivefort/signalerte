@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
-use App\Data\FilterData;
+use Symfony\UX\Map\Map;
 // use App\Form\SearchType;
 // use App\Model\SearchData;
+use App\Data\FilterData;
 use App\Form\FilterType;
+use Symfony\UX\Map\Point;
+use Symfony\UX\Map\Marker;
 use App\Entity\Signalement;
 use App\Form\SignalementType;
+use Symfony\UX\Map\InfoWindow;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SignalementRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\UX\Map\Bridge\Leaflet\LeafletOptions;
+use Symfony\UX\Map\Bridge\Leaflet\Option\TileLayer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SignalementController extends AbstractController
@@ -28,11 +34,46 @@ final class SignalementController extends AbstractController
         $data = new FilterData();
         $form = $this-> createForm(FilterType::class, $data);
         $form->handleRequest($request);
-        // dd($data);
         $signalements = $repository->findSearch($data);
+        $monService->importFichier($pathduFichier);
+        // dd($signalements[1]);
+        // $map = (new Map('default'))
+        //     ->center(new Point(47.65, 1.50))
+        //     ->zoom(7)
+        //     ->addMarker(new Marker(
+        //         position: new Point(47.65, 1.50),
+        //         title: 'Tours',
+        //         infoWindow: new InfoWindow(
+        //             content: '<p>CHRU Bretonneau</p>',
+        //         )
+        //     ));
+            // ->options((new LeafletOptions())
+            //     ->tileLayer(new TileLayer(
+            //         url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            //         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            //         options: ['maxZoom' => 25]
+            //     ))
+            // );
+
+            // $markers = [];
+            // foreach ($signalements as $signalement) {
+            //     $markers[] = [
+            //         'position' => [$signalement->structure->latitude, $signalement->structure->longitude],
+            //         'title' => $signalement->structure->nom,
+            //     ];
+            // }
+
+            // $markers = array_map(function($value) {
+            //     return [
+            //         'position' => [$value->structure->latitude, $value->structure->longitude],
+            //         'title' => $value->structure->nom,
+            //     ];
+            // }, $signalements);
         return $this->render('pages/signalement/index.html.twig', [
             'signalements'=> $signalements,
-            'form' => $form
+            'form' => $form,
+            // 'map' => $map,
+            // dd($map)
         ]);
     // }
 
@@ -55,7 +96,6 @@ final class SignalementController extends AbstractController
     ): Response {
         $signalement = new Signalement();
         $form = $this->createForm(SignalementType::class, $signalement);
-
         $form->HandleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $signalement = $form->getData();

@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Data\FilterData;
+use App\Form\FilterType;
 use App\Entity\Structure;
 use App\Form\StructureType;
+use App\Data\FilterStructure;
+use App\Form\FilterStructType;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,15 +22,20 @@ final class StructureController extends AbstractController
     #[Route('/structure', name: 'structure.index', methods:['GET'])]
     public function index( 
         StructureRepository $repository,
-        PaginatorInterface $paginator,
+        // PaginatorInterface $paginator,
         Request $request
     ): Response {
-        $structures = $paginator->paginate(
-            $repository->findAll(),
-            $request->query->getInt('page', 1), 20
-        );        
+        $data = new FilterStructure();
+        $form = $this-> createForm(FilterStructType::class, $data);
+        $form->handleRequest($request);
+        $structures = $repository->findSearch($data);
+        // $structures = $paginator->paginate(
+        //     $repository->findAll(),
+        //     $request->query->getInt('page', 1), 20
+        // );        
         return $this->render('pages/structure/index.html.twig', [
-            'structures' => $structures
+            'structures' => $structures,
+            'form' => $form
         ]);        
     }
 

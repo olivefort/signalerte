@@ -92,6 +92,22 @@ export default class extends Controller {
             })
         }
 
+        const map = document.querySelector('.map');
+        const side = document.querySelector('.formside');
+        const togle = document.querySelector('.side button');
+        togle.addEventListener('click', ()=>{            
+            const open = JSON.parse(togle.getAttribute('aria-expanded'));
+            togle.setAttribute('aria-expanded', !open);
+            side.hidden = !side.hidden;
+            if(side.hidden){
+
+               
+                map.setAttribute('style', 'grid-column : 1/7')
+            }else {
+                map.setAttribute('style', 'grid-column : 4/7')
+            }
+
+        })    
      
 
         //bouton reset
@@ -161,5 +177,5 @@ export default class extends Controller {
 
         const rst = document.querySelector('.reset');
         rst.addEventListener('click', ()=>{ reset()});
-    }   
+    }
 }

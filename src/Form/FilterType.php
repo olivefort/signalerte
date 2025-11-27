@@ -194,7 +194,7 @@ class FilterType extends AbstractType
             ],            
             'choices' => [
                     'CRENO' => 'CRENO',
-                    'CNRS' => 'CNRS'
+                    'CNR' => 'CNRS'
             ],
             'placeholder' => false,
             'label' => false,

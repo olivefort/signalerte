@@ -53,7 +53,13 @@ class SignalementRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('st.departement IN (:departement)')
                 ->setParameter('departement',$filter->departement);
-        }  
+        }
+
+        if(!empty($filter->longitude)){
+            $query = $query
+                ->andWhere('st.longitude IN (:longitude)')
+                ->setParameter('longitude',$filter->longitude);
+        } 
 
         if(!empty($filter->epidemie)){
             $query = $query
@@ -130,10 +136,21 @@ class SignalementRepository extends ServiceEntityRepository
                 ->andWhere('c.type IN (:contact)')
                 ->setParameter('contact',$filter->contact);
         }
-
-
-
-
         return $query->getQuery()->getResult();    
     }
+
+    // public function mapSearch(FilterData $filter): array
+    // {
+    //     $query = $this->createQueryBuilder('s')
+    //         ->select('i', 's')
+    //         ->select('st', 's')
+    //         ->join('s.infection', 'i')
+    //         ->join('s.structure', 'st');
+
+    //     if(!empty($filter->longitude)){
+    //         $query = $query
+    //             ->andWhere('st.longitude IN (:longitude)')
+    //             ->setParameter('longitude',$filter->longitude);
+    //     } 
+    // }
 }

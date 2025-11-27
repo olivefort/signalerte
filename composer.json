@@ -40,6 +40,8 @@
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/ux-autocomplete": "^2.25",
+        "symfony/ux-leaflet-map": "^2.30",
+        "symfony/ux-map": "^2.30",
         "symfony/ux-turbo": "^2.23",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
@@ -108,6 +110,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.2",
         "symfony/stopwatch": "7.2.*",
-        "symfony/web-profiler-bundle": "7.2.*"
+        "symfony/web-profiler-bundle": "7.2.*",
+        "clickandmortar/import-bundle": "^1.0"
     }
 }

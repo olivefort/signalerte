@@ -1,7 +1,65 @@
 body {
     background-color: rgb(211, 233, 248);
+
 }
 .resume {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+h1, h5, label{
+    color : rgb(20, 20, 20) !important;
+}
+/* input::placeholder{
+    color: rgb(68, 68, 68) !important;
+} */
+.togle {
+    position: fixed;    
+    width: 2rem;
+    left: 22%;    
+    top : 15.5%;
+    height: 2rem;
+    width: 3rem;    
+    padding: .8rem 0;
+    transition: .3s;
+    z-index: 10;
+    /* font: 0/0 a;
+    text-shadow: none;
+    border: 0;
+    color: transparent;
+    background-color: var(--bluenavy);
+    background-clip: content-box; */
+}
+
+.togle::before,
+.togle::after {
+    content: '';
+    /* position: absolute;
+    left: 0;
+    right: 0;
+    height: .4rem;
+    background-color: var(--bluenavy);
+    transition: .3s;
+    transform-origin: left; */
+}
+
+.togle::before {
+    top: 0;
+}
+
+.togle::after {
+    bottom: 0;
+}
+/* 
+.togle[aria-expanded=true] {
+    background-color: rgba(0,0,0,0);
+}
+
+.togle[aria-expanded=true]::before  {
+    transform: translate(.2rem, .1rem) rotate(45deg);    
+    background-color: white;
+}
+
+.togle[aria-expanded=true]::after  {
+    transform: translate(.2rem, -.1rem) rotate(-45deg);    
+    background-color: white;
+} */

@@ -25,7 +25,7 @@ class SoucheType extends AbstractType
                 ],
                 'choices' => [
                     'CRENO' => 'CRENO',
-                    'CNRS' => 'CNRS'                    
+                    'CNR' => 'CNRS'                    
                 ],
                 'label' => 'Labo',
                 'label_attr' => [

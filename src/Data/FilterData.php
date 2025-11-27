@@ -23,6 +23,11 @@ public $type;
 public $departement;
 
 /**
+ * @var Structure.longitude[]
+ */
+public $longitude;
+
+/**
  * @var Signalement.epidemie[]
  */
 public $epidemie;

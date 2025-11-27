@@ -8,7 +8,7 @@
 
         {{ form_start(form) }}
 
-        <div class="grid" data-controller="signalement">
+        <div class="gridpage" data-controller="signalement">
 
             <div class="col4">
                 {{ form_row(form.type, {
@@ -45,26 +45,32 @@
                 ) }}
             </div>
 
-            <div class="col4">
+            <div class="col3">
                 {{ form_label(form.infection) }}      
                 {{ form_widget(form.infection) }}      
             </div>
 
-            <div class="col4">
-                {{ form_row(form.cas, {
-                    attr: {'data-signalement-target': 'cas',
-                    'data-action' : 
-                    'change->signalement#updateCas change->signalement#updateScore'               
+            <div class="col3">
+                {{ form_row(form.casO, {
+                    attr: { 'data-signalement-target': 'casO',
+                            'data-action' : 'change->signalement#updateCasO change->signalement#updateScore'               
                     }
-                }) }}
-            </div> 
+                }) }}                
+            </div>
 
-            <div class="col4">
+            <div class="col3">
                 {{ form_row(form.epidemie, {
                     attr: {'data-signalement-target': 'epidemie'}
                 }) }}
             </div> 
 
+            <div class="col3">
+                {{ form_row(form.casC, {
+                    attr: { 'data-signalement-target': 'casC',
+                            'data-action' : 'change->signalement#updateCasC change->signalement#updateScore'               
+                    }
+                }) }}                
+            </div>
             <div class="col12">
                 {{ form_row(form.service) }}
             </div>
@@ -150,30 +156,20 @@
                 }) }}
             </div>   
            
-            <div class="col4">
+            <div class="hidden col4">
                 {{ form_row(form.score, {
                     attr: {'data-signalement-target': 'score'}
                 }) }}
             </div> 
 
-            
+            <div class="d-flex col12 mt-4">
+                <p class="scoreTot">Score Total : 
+                    <span id="scoreTotal">0</span>                
+                <p>
+            </div>
 
             
             <div class="col12 score grid">
-                <div class="col3 p-3 border border-2 rounded border-black eta ars">
-                    <h3>ARS</h3>
-                    <div class="form-group note">
-                        {{ form_row(form.ARS, {
-                            attr: {
-                                'data-signalement-target' : 'ARS',
-                                'data-action' : 'change->signalement#colorNote'
-                            }
-                        })}}                   
-                    </div>
-                    <div class="form-group note">
-                        {{ form_row(form.clotureARS) }}                   
-                    </div>
-                </div>
                 <div class="col3 p-3 border border-2 rounded border-black eta es">
                     <h3>ES</h3>
                     <div class="form-group note">
@@ -186,6 +182,20 @@
                     </div>
                     <div class="form-group note">
                         {{ form_row(form.clotureES) }}                   
+                    </div>
+                </div>
+                <div class="col3 p-3 border border-2 rounded border-black eta ars">
+                    <h3>ARS</h3>
+                    <div class="form-group note">
+                        {{ form_row(form.ARS, {
+                            attr: {
+                                'data-signalement-target' : 'ARS',
+                                'data-action' : 'change->signalement#colorNote'
+                            }
+                        })}}                   
+                    </div>
+                    <div class="form-group note">
+                        {{ form_row(form.clotureARS) }}                   
                     </div>
                 </div>
                 <div class="col3 p-3 border border-2 rounded border-black eta cpias">
