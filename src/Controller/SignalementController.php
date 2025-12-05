@@ -34,8 +34,11 @@ final class SignalementController extends AbstractController
         $data = new FilterData();
         $form = $this-> createForm(FilterType::class, $data);
         $form->handleRequest($request);
+        // $upload = new Signalement();
+        // $formUpload = $this-> createForm(ImportType::class, $upload)
+        // $formUpload->handleRequest($request);
         $signalements = $repository->findSearch($data);
-        $monService->importFichier($pathduFichier);
+        // $monService->importFichier($pathduFichier);
         // dd($signalements[1]);
         // $map = (new Map('default'))
         //     ->center(new Point(47.65, 1.50))
@@ -143,7 +146,7 @@ final class SignalementController extends AbstractController
     }
 
     //DELETE
-    #[Route('/signalement/suppresion/{id}', name: 'signalement.delete', methods: ['GET'])]
+    #[Route('/signalement/suppression/{id}', name: 'signalement.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
         Signalement $signalement
@@ -171,4 +174,6 @@ final class SignalementController extends AbstractController
             'signalement' => $signalement
         ]);
     }
+
+   
 }

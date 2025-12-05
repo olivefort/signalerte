@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Upload;
 use App\Form\UserType;
-use Doctrine\ORM\EntityManagerInterface;
 // use Symfony\Component\HttpKernel\Profiler\Profiler;
 // use Symfony\Component\ExpressionLanguage\Expression;
+use League\Csv\Reader;
+use App\Form\ImportType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -59,7 +62,57 @@ final class UserController extends AbstractController
             'form'=>$form,
         ]);
     }
-}
+    
+    // private $em;
+    
+    // public function __construct(
+    //     EntityManagerInterface $em)
+    // {
+    //     parent::__construct();
+    //     $this->em = $em;
+    // }
+
+    #[Route('/signalement', name: 'signalement.index', methods:['GET', 'POST'])]
+    public function upload(
+        Request $request,
+        EntityManagerInterface $manager
+        //  #[Autowire('%kernel.project_dir%/public/uploads/users')] string $fileDirectory
+    ) : Response {
+            $upload = new Upload();
+            $form = $this->createForm(ImportType::class, $upload);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $file = $upload -> getCsvFile();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move($this->getParameter('csvFile', $fileName));
+                $upload->setCsvFile($fileName);
+
+                $csv = Reader::createFromPath('%kernel.root.dir%/../public/uploads/'.$fileName);
+                $csv->setHeaderOffset(0);
+                $csv->setDelimiter(';');
+                $csv->setEscape('');
+                $records = $csv->getRecords();
+                foreach ($records as $record){ 
+                    $user = (new User())
+                        ->setNom($record['nom'])
+                        ->setPrenom($record['prenom'])
+                        ->setEmail($record['email'])              
+                        ->setPlainPassword($record['password'])
+                    ;
+                    $this->em->persist($user);
+                }
+                $this->em->flush();
+                $this->addFlash('success','Bien ajouté avec succès');
+                return $this->redirectToRoute('signalement.index');
+            }
+            return $this->render('pages/signalement/index.html.twig', [
+                
+            ]);
+    }
+
+
+   
         
 
 
@@ -121,4 +174,5 @@ final class UserController extends AbstractController
     //         'form' => $form->createView()
     //     ]);
     // }
+}
 
