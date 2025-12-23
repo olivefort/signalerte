@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Signalement{{signalement.numero}}{% endblock %}
+{% block title %}Signalement - {{signalement.numero}}{% endblock %}
 
 {% block body %}
  <div class="gridpage">
@@ -12,11 +12,11 @@
 
     <div class="col12">
         <h1 class="mt-4 d-flex flex-row justify-content-between">
-            <span>{{signalement.type}}-{{signalement.numero}}</span> <span>{{signalement.structure.nom}}</span> <span>{{signalement.date|date('d/m/Y')}}</span>
+            <span>{{signalement.type}} - {{signalement.numero}}</span> <span>{{signalement.structure.nom}}</span> <span>{{signalement.date|date('d/m/Y')}}</span>
         </h1>
     </div>
 
-    <div class="griddetail">
+    {# <div class="griddetail"> #}
         <div class="col1 show">
             <p class="mt-4 badge bg-primary">Finess de la structure</p>
             <ul>
@@ -46,7 +46,15 @@
         </div>  
         <div>
             <p class="mt-4 badge bg-primary">Épidémie</p>
-            </br>{{ (signalement.epidemie == 'Épidémie') ? 'Oui'  : 'Non' }} ({{ signalement.casO}})
+            {# </br>{{ (signalement.epidemie == 'Épidémie') ? 'Oui'  : 'Non' }} - {{ signalement.casO}} #}
+            <div>
+                {% if signalement.casC > signalement.casO %} 
+                    <span class="text-center nbB">{{ signalement.epidemie }}</span></br><span class="text-center nbC">{{signalement.casO}}</span> -> <span class="text-center nbB">{{ signalement.casC }}</span>
+                {% else %}
+                    <span class="text-center nbB">{{ signalement.epidemie }}</span></br><span class="text-center nbA">{{signalement.casO}}</span>
+                    
+                {% endif %}
+            </div>
         </div>
         <div class="col2">                
             <p class="mt-4 badge bg-primary">Souche</p>
@@ -109,7 +117,11 @@
             <p class="mt-4 badge bg-primary">Impact échelle régionale</br> ou nationale</p>
             <span class="impac">{{signalement.impact}}</span>
         </div>
-        <div class="col5">
+        <div>
+            <p class="mt-4 badge bg-primary">Infection</p>
+            </br><span class="infect">{{signalement.infection}}</span>
+        </div>
+        <div class="col4">
             <p class="mt-4 badge bg-primary">Cotation</p>            
             <ul>
                 <li class="note"> ARS : <span class="couleur">{{signalement.ARS}}</span> {{signalement.clotureARS|date('d/m/Y')}}</li>
@@ -122,14 +134,19 @@
             <p class="mt-4 badge bg-primary">Commentaire</p>
             <p>{{signalement.commentaire}}</p>
         </div>
-        <div><p class="mt-4 badge bg-primary">Score : <span class="score"></span></p></div>
-        <div class="col12 d-flex mb-2">
+        {# <div><p class="mt-4 badge bg-primary">Score : <span class="score">{{signalement.score}}</span></p></div>
+        <div class="col12 d-flex mb-2"> #}
+        <div class="col6">
+            <p class="mt-4 badge bg-primary">Score</p>
+            <p class="score">{{signalement.score}}</p>
+        </div>
+        
             
             <td><a class="btn btn-info modif" type="button" href='{{ path('signalement.edit', {id: signalement.id})}}'>Modifier</a></td>
             <td><a class="btn btn-secondary ms-2" type="button" href='{{ path('signalement.delete', {id: signalement.id})}}'>Effacer</a></td>
             <td><a class="btn btn-secondary ms-2" type="button" href='{{ path('signalement.index', {id: signalement.id})}}'>Retour</a></td>
         </div>
-    </div>
+    {# </div> #}
         
     
     {# {% if app.user %}

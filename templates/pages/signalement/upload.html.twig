@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signalements{% endblock %}
+
+{% block body %}
+<h1>Upload !!!</h1>
+
+
+{# {% if formUser is defined %} #}
+{{ form_start(form)}}
+
+
+{{ form_row(form.csvFile, 
+    {'attr': 
+        {'accept': '.csv,text/csv,application/csv,text/x-comma-separated-values,text/x-csv,text/plain'}}) }}
+
+{# 
+<div class="formulaire">{{ form_row(formUpload.csvFile) }}
+</div>
+<div class="row">
+    <button class="btn btn-primary w-40 mt-5" type="submit">Valider</button>
+    
+</div> #}
+{{ form_end(form)}}
+{# {% endif %} #}
+{% endblock %}

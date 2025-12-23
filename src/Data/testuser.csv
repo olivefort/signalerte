@@ -1,4 +1,4 @@
-﻿nom;prenom;email;roles;password
+﻿nom;prenom;email;roles;mdp
 Poclain;Michel;p.m@mpmp.fr;"[""ROLE_USER""]";password
 Vilsan;Céline;cv@hzh.fr;"[""ROLE_USER""]";password
 Breton;John;de@dezd.fr;"[""ROLE_USER""]";password

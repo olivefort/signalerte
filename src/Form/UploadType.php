@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Signalement;
 use App\Entity\Upload;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,19 +10,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ImportType extends AbstractType
+class UploadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('csvFile', FileType::class,[
-                'label' => 'Fichier CSV2',
+                'label' => 'Fichier CSV3',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File(
                         maxSize: '1024k',
-                         extensions: [
+                        extensions: [
                             'csv' => [
                                 'text/csv',
                                 'application/csv',
@@ -32,11 +31,11 @@ class ImportType extends AbstractType
                                 'text/plain',
                             ]
                         ],
-                        extensionsMessage: 'Insérer un fichier de type .csv valide',
-                    )
+                        extensionsMessage: 'Insérer un fichier de type .csv valide',                        
+                    ),
                 ],
             ])
-              ->add('submit', SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary mt-4 valider'],
                 'label' => 'Ajouter le csv'
             ])

@@ -5,10 +5,12 @@
 {% block body %}
     <div class='container mt-4'>
         <h1>Ajouter un signalement</h1>
+         {# {% include 'pages/signalement/_csv.html.twig' with {form: formUser} only %} #}
 
         {{ form_start(form) }}
 
-        <div class="gridsignalement" data-controller="signalement">
+        <div class="gridsignalement" data-controller="signalement">          
+       
         
             <div class="col3 h50">
                 {{ form_row(form.type, {

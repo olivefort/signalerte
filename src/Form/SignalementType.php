@@ -54,7 +54,7 @@ class SignalementType extends AbstractType
                     'Portail' => 'Portail',
                     'Aucun' => 'Aucun'                   
                 ],
-                'label' => 'Type',
+                'label' => 'Type *',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -66,7 +66,7 @@ class SignalementType extends AbstractType
                     'minlength' => '5',
                     'placeholder' => '12345'
                 ],
-                'label' => 'Numéro du signalement',
+                'label' => 'Numéro du signalement *',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -82,7 +82,7 @@ class SignalementType extends AbstractType
                     'class' => 'form-control',
                     'max' => date('Y-m-d')
                 ],
-                'label' => 'Date du signalement',
+                'label' => 'Date du signalement *',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -100,7 +100,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-select'
                 ],
-                'label' => "Nom de la structure",
+                'label' => "Nom de la structure *",
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -217,7 +217,7 @@ class SignalementType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Commentaire',
+                'label' => 'Commentaire *',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],

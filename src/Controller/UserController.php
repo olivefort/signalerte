@@ -72,44 +72,44 @@ final class UserController extends AbstractController
     //     $this->em = $em;
     // }
 
-    #[Route('/signalement', name: 'signalement.index', methods:['GET', 'POST'])]
-    public function upload(
-        Request $request,
-        EntityManagerInterface $manager
-        //  #[Autowire('%kernel.project_dir%/public/uploads/users')] string $fileDirectory
-    ) : Response {
-            $upload = new Upload();
-            $form = $this->createForm(ImportType::class, $upload);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
+    // #[Route('/signalement', name: 'signalement.index', methods:['GET', 'POST'])]
+    // public function upload(
+    //     Request $request,
+    //     EntityManagerInterface $manager
+    //     //  #[Autowire('%kernel.project_dir%/public/uploads/users')] string $fileDirectory
+    // ) : Response {
+    //         $upload = new Upload();
+    //         $formUser = $this->createForm(ImportType::class, $upload);
+    //         $formUser->handleRequest($request);
+    //         if ($formUser->isSubmitted() && $formUser->isValid()) {
 
-                $file = $upload -> getCsvFile();
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                $file->move($this->getParameter('csvFile', $fileName));
-                $upload->setCsvFile($fileName);
+    //             $file = $upload -> getCsvFile();
+    //             $fileName = md5(uniqid()).'.'.$file->guessExtension();
+    //             $file->move($this->getParameter('csvFile', $fileName));
+    //             $upload->setCsvFile($fileName);
 
-                $csv = Reader::createFromPath('%kernel.root.dir%/../public/uploads/'.$fileName);
-                $csv->setHeaderOffset(0);
-                $csv->setDelimiter(';');
-                $csv->setEscape('');
-                $records = $csv->getRecords();
-                foreach ($records as $record){ 
-                    $user = (new User())
-                        ->setNom($record['nom'])
-                        ->setPrenom($record['prenom'])
-                        ->setEmail($record['email'])              
-                        ->setPlainPassword($record['password'])
-                    ;
-                    $this->em->persist($user);
-                }
-                $this->em->flush();
-                $this->addFlash('success','Bien ajouté avec succès');
-                return $this->redirectToRoute('signalement.index');
-            }
-            return $this->render('pages/signalement/index.html.twig', [
-                
-            ]);
-    }
+    //             $csv = Reader::createFromPath('%kernel.root.dir%/../public/uploads/'.$fileName);
+    //             $csv->setHeaderOffset(0);
+    //             $csv->setDelimiter(';');
+    //             $csv->setEscape('');
+    //             $records = $csv->getRecords();
+    //             foreach ($records as $record){ 
+    //                 $user = (new User())
+    //                     ->setNom($record['nom'])
+    //                     ->setPrenom($record['prenom'])
+    //                     ->setEmail($record['email'])              
+    //                     ->setPlainPassword($record['password'])
+    //                 ;
+    //                 $this->em->persist($user);
+    //             }
+    //             $this->em->flush();
+    //             $this->addFlash('success','Bien ajouté avec succès');
+    //             return $this->redirectToRoute('signalement.index');
+    //         }
+    //         return $this->render('pages/signalement/index.html.twig', [
+    //             'formUser' => $formUser,
+    //         ]);
+    // }
 
 
    

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\UX\Map\Map;
+use App\Entity\Upload;
 // use App\Form\SearchType;
 // use App\Model\SearchData;
+use League\Csv\Reader;
+use Symfony\UX\Map\Map;
 use App\Data\FilterData;
 use App\Form\FilterType;
+use App\Form\ImportType;
 use Symfony\UX\Map\Point;
 use Symfony\UX\Map\Marker;
 use App\Entity\Signalement;
@@ -20,24 +23,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Map\Bridge\Leaflet\LeafletOptions;
 use Symfony\UX\Map\Bridge\Leaflet\Option\TileLayer;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SignalementController extends AbstractController
 {
     //READ
-    #[Route('/signalement', name: 'signalement.index', methods:['GET'])]
+    #[Route('/signalement', name: 'signalement.index', methods:['GET', 'POST'])]
     public function index(
         SignalementRepository $repository,
-        // PaginatorInterface $paginator,
         Request $request
+        // PaginatorInterface $paginator,
     ): Response {
         $data = new FilterData();
         $form = $this-> createForm(FilterType::class, $data);
         $form->handleRequest($request);
+        $signalements = $repository->findSearch($data);
         // $upload = new Signalement();
         // $formUpload = $this-> createForm(ImportType::class, $upload)
         // $formUpload->handleRequest($request);
-        $signalements = $repository->findSearch($data);
         // $monService->importFichier($pathduFichier);
         // dd($signalements[1]);
         // $map = (new Map('default'))
@@ -73,8 +77,9 @@ final class SignalementController extends AbstractController
             //     ];
             // }, $signalements);
         return $this->render('pages/signalement/index.html.twig', [
-            'signalements'=> $signalements,
             'form' => $form,
+            'signalements'=> $signalements,
+           
             // 'map' => $map,
             // dd($map)
         ]);
@@ -89,6 +94,89 @@ final class SignalementController extends AbstractController
         //     'signalements' => $signalements,
         //     'filter' > $filter
         // ]);
+    }
+
+    // #[Route('/signalement/upload', name: 'signalement.upload', methods:['GET', 'POST'])]
+    // public function upload(
+
+    // ): Response { 
+    //     return $this->render('pages/signalement/upload.html.twig');
+    // }
+
+     #[Route('/signalement/upload', name: 'signalement.upload', methods:['GET', 'POST'])]
+    public function upload(
+        Request $request,
+        SluggerInterface $slugger,
+        // EntityManagerInterface $manager,
+        // Signalement $signalement,
+        //  #[Autowire('%kernel.project_dir%/public/uploads/users')] string $fileDirectory
+    )  : Response {
+            $upload = new Upload();
+            $form = $this->createForm(ImportType::class, $upload);
+            $form->handleRequest($request);
+           
+            if ($form->isSubmitted() && $form->isValid()) {
+                $file = $form -> get('csvFile')->getData();
+                dd($file);
+                if($file){
+                    $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFileName = $slugger->slug($fileName);
+                    // $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+                    // dd($safeFileName);
+                    $newFileName = $safeFileName.'-'.uniqid().'.'.$file->guessExtension();
+                    // dd($newFileName);
+                    // $file->move($this->getParameter('csvFile', $fileName));
+                    $upload->setCsvFile($newFileName);
+                    // dd($upload);
+                    $csv = Reader::createFromPath('%kernel.root.dir%/../public/uploads/'.$fileName);
+                    dd($csv);
+                    $csv->setHeaderOffset(0);
+                    $csv->setDelimiter(';');
+                    $csv->setEscape('');
+                    $records = $csv->getRecords();
+                    foreach ($records as $record){ 
+                        $structure = $this->em->getRepository(Structure::class)->findOneBy(['nom' => $record['Nom de la structure']]);
+                        $infection = $this->em->getRepository(Infection::class)->findOneBy(['infection' => $record['Type infection']]);
+                        $etiologie = $this->em->getRepository(Etiologie::class)->findOneBy(['agent' => $record['Agent etiologique']]);          
+                
+                        $date = $record['Date du signalement'];
+                        $dbdate = \DateTimeImmutable::createFromFormat('d/m/Y', $date);
+                        $signalement = (new Signalement())
+                            ->setNumero($record['Identifiant de la fiche'])
+                            ->setType($record['ESiN ou Portail'])
+                            ->setDate($dbdate)
+                            ->setCasO($record['Cas origine'])
+                            ->setCasC($record['Cas cloture'])
+                            ->setCommentaire($record['Commentaire'])
+                            ->setEpidemie($record['Type de cas'])
+                            ->setCapacite($record['Capacite de gestion locale'])
+                            ->setGravite($record['Gravite'])
+                            ->setImpact($record['Impact echelle'])
+                            ->setMesure($record['Mesures efficaces'])
+                            ->setReco($record['Mesure conforme aux reco'])
+                            ->setPopulation($record['Population a risque'])
+                            ->setScore($record['Score'])
+                            ->setARS($record['Score ARS'])
+                            ->setES($record['Score ES'])
+                            ->setCPIAS($record['Score CPIAS'])
+                            ->setSPF($record['Score SPF'])
+                            ->setInfection($infection)               
+                            ->setEtiologie($etiologie)
+                            ->setStructure($structure)
+                            ;
+                            $this->em->persist($signalement);
+                            $this->em->persist($infection);
+                            $this->em->persist($structure);
+                            $this->em->persist($etiologie);
+                    }
+                    
+                }
+                $this->em->flush();
+                    $this->addFlash('success','Bien ajouté avec succès');
+                    return $this->redirectToRoute('signalement.index');
+            }
+        return $this->render('pages/signalement/upload.html.twig',
+            ['form' => $form,]);
     }
 
     //CREATE
@@ -176,4 +264,5 @@ final class SignalementController extends AbstractController
     }
 
    
+
 }
